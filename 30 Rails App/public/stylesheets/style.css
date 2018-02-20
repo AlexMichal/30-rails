@@ -1,0 +1,50 @@
+.grid {
+    width: 400px;
+    height: 100px;
+    float: left;
+}
+
+.tile {
+  width: 50px;
+  height: 50px;
+  float: left;
+  border: 1px solid black;
+}
+
+.tile.grey {
+  background-color: grey;
+}
+
+.tile.black {
+  background-color: lightgrey;
+}
+
+.shadow {
+  -webkit-box-shadow: inset 0px 0px 5px 5px rgb(224, 123, 123);
+  box-shadow: inset 0px 0px 3px 3px rgb(224, 123, 123);
+}
+
+/* ROTATION: */
+ .rotate90 {
+   -webkit-transform: rotate(90deg);
+   -moz-transform: rotate(90deg);
+   -o-transform: rotate(90deg);
+   -ms-transform: rotate(90deg);
+   transform: rotate(90deg);
+ }
+
+.rotate180 {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.rotate270 {
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  transform: rotate(270deg);
+}
