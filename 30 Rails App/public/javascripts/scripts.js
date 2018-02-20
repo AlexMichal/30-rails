@@ -3,9 +3,10 @@ var g_rowAndColumnRolled = 0;
 var g_lastTrackTileRolled = 0;
 var g_lastSelectedTile = "";
 var g_stationNumber;
+var g_overrideNumberSelected = false;
+var g_tilePlaced = false;
 var g_lockedTiles = [];
 var g_lockedStation = [];
-// var g_availableTiles = [];
 
 const ROTATE90 = "rotate90";
 const ROTATE180 = "rotate180";
@@ -29,7 +30,7 @@ $(document).ready(function() {
         console.log("TILE GREY");
 
         // if the tile is NOT locked, a NEW track is selected, and if it's the correct row/column
-        if ((!isLocked(this)) && (g_trackTileRolled !== 0) && (isInValidRowOrColumn(this))) {
+        if ((!isLocked(this)) && (g_trackTileRolled !== 0) && (isInValidRowOrColumn(this) || g_overrideNumberSelected)) {
             if (g_lastSelectedTile == this &&
                 g_lastTrackTileRolled == g_trackTileRolled) {
                 // rotate.
@@ -43,10 +44,11 @@ $(document).ready(function() {
 
     // roll dice:
     $(".tile.white.roll").on("click", function() {
-        removeShadowToRowsAndColumns();
-
         g_trackTileRolled = rollD6(); console.log(g_trackTileRolled);
         g_rowAndColumnRolled = rollD6(); console.log(g_rowAndColumnRolled);
+        g_overrideNumberSelected = false;
+
+        removeShadowFromTrackTiles();
 
         if (g_lastSelectedTile != "") lockPreviousTile();
 
@@ -60,7 +62,6 @@ $(document).ready(function() {
     $(".tile.white.reset").on("click", function() {
         resetPlayfield();
     });
-
 
     // stations:
     // top
@@ -83,7 +84,6 @@ $(document).ready(function() {
 
             $("[id$='0'].tile.station").removeClass("shadow");
         }
-
     });
 
     // bottom
@@ -95,7 +95,6 @@ $(document).ready(function() {
 
             $("[id^='7'].tile.station").removeClass("shadow");
         }
-
     });
 
     // right
@@ -108,10 +107,23 @@ $(document).ready(function() {
             $("[id$='7'].tile.station").removeClass("shadow");
         }
     });
+
+    // override number button
+    $("#override_number").on("click", function() {
+        makeAllUnlockedTilesAvailable();
+    });
+
+    // override track button
+    $("#override_track").on("click", function() {
+        // add shadow to all track tiles so user can select them
+    });
 });
 
-function stationIsEmpty() {
+function makeAllUnlockedTilesAvailable() {
+    $(".tile.grey").addClass("shadow");
+    //$(".tile.grey.locked").removeClass("shadow");
 
+    g_overrideNumberSelected = true;
 }
 
 function resetPlayfield() {
@@ -132,16 +144,7 @@ function resetPlayfield() {
 }
 
 function setStations() {
-    // remove shadow from playfield
-
-    // set shadow to all rows/col one at a time
-    // $("[id$='0'].station").addClass("shadow");
     $(".station").addClass("shadow");
-
-    // disable everything else until all 4 stations have been set
-
-    // grey out all other tiles TODO
-
 }
 
 function addShadowToRowsAndColumns() {
@@ -149,9 +152,13 @@ function addShadowToRowsAndColumns() {
     $('[id*=' + g_rowAndColumnRolled + '].grey.tile').addClass("shadow");
 }
 
-function removeShadowToRowsAndColumns() {
+function removeShadowFromRowsAndColumns() {
     $('[id^=' + g_rowAndColumnRolled + '].grey.tile').removeClass("shadow");
     $('[id*=' + g_rowAndColumnRolled + '].grey.tile').removeClass("shadow");
+}
+
+function removeShadowFromTrackTiles() {
+    $(".tile.grey").removeClass("shadow");
 }
 
 function isInValidRowOrColumn(tile) {
@@ -160,6 +167,8 @@ function isInValidRowOrColumn(tile) {
 
 function lockPreviousTile() {
     g_lockedTiles.push(g_lastSelectedTile.id);
+
+    $(g_lastSelectedTile).addClass("locked");
 
     // reset tile variables.
     g_lastSelectedTile = "";
@@ -199,6 +208,7 @@ function placeTile(tile) {
     // set global variables.
     g_lastSelectedTile = tile;
     g_lastTrackTileRolled = g_trackTileRolled;
+    g_tiledPlaced = true;
 
     console.log("g_trackTileRolled: " + g_trackTileRolled);
 }

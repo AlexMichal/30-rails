@@ -1,7 +1,24 @@
+.centered {
+}
+
+#playfield {
+  float: left;
+  width: 400px;
+  height: 400px;
+}
+
+#tracks {
+  width: 400px;
+  float: clear;
+}
+
+#buttons {
+  float: left;
+  width: 400px;
+}
+
 .grid {
-    width: 400px;
-    height: 100px;
-    float: left;
+
 }
 
 .tile {
