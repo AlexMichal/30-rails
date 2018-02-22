@@ -4,6 +4,7 @@ var g_lastTrackTileRolled = 0;
 var g_lastSelectedTile = "";
 var g_stationNumber;
 var g_overrideNumberSelected = false;
+var g_overrideTrackSelected = false;
 var g_tilePlaced = false;
 var g_lockedTiles = [];
 var g_lockedStation = [];
@@ -115,13 +116,68 @@ $(document).ready(function() {
 
     // override track button
     $("#override_track").on("click", function() {
-        // add shadow to all track tiles so user can select them
+        makeAllTracksAvailable();
+    });
+
+    // tracks:
+    // track_one
+    $("#track_one").on("click", function () {
+        if (g_overrideTrackSelected) {
+            
+        }
+    });
+    
+    // track_two
+    $("#track_two").on("click", function () {
+        if (g_overrideTrackSelected) {
+            
+        }
+    });
+    
+    // track_three
+    $("#track_three").on("click", function () {
+        if (g_overrideTrackSelected) {
+            
+        }
+    });
+    
+    // track_four
+    $("#track_four").on("click", function () {
+        if (g_overrideTrackSelected) {
+            
+        }
+    });
+    
+    // track_five
+    $("#track_five").on("click", function () {
+        if (g_overrideTrackSelected) {
+            
+        }
+    });
+    
+    // track_six_one
+    $("#track_six_one").on("click", function () {
+        if (g_overrideTrackSelected) {
+            
+        }
+    });
+    
+    // track_six_two
+    $("#track_six_two").on("click", function () {
+        if (g_overrideTrackSelected) {
+            
+        }
     });
 });
 
+function makeAllTracksAvailable() {
+    $(".tile.grey").addClass("shadow");
+    
+    g_overrideTrackSelected = true;
+}
+
 function makeAllUnlockedTilesAvailable() {
     $(".tile.grey").addClass("shadow");
-    //$(".tile.grey.locked").removeClass("shadow");
 
     g_overrideNumberSelected = true;
 }
