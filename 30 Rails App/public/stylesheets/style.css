@@ -10,11 +10,10 @@
 
 #tracks {
   width: 400px;
-  float: clear;
 }
 
 #buttons {
-  width: 400px;
+  width: 100px;
   float: left;
 }
 
