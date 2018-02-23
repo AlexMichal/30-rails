@@ -45,18 +45,7 @@ $(document).ready(function() {
 
     // roll dice
     $(".tile.white.roll").on("click", function() {
-        g_trackTileRolled = rollD6(); console.log(g_trackTileRolled);
-        g_rowAndColumnRolled = rollD6(); console.log(g_rowAndColumnRolled);
-        g_overrideNumberSelected = false;
-
-        removeShadowFromTrackTiles();
-
-        if (g_lastSelectedTile != "") lockPreviousTile();
-
-        $("#die_one").html(g_rowAndColumnRolled);
-        $("#die_two").html(getTrackImageHTML(g_trackTileRolled));
-
-        addShadowToRowsAndColumns();
+        rollDice();
     });
 
     // reset playfield
@@ -156,6 +145,22 @@ $(document).ready(function() {
     });
 });
 
+function rollDice() {
+    g_trackTileRolled = rollD6();
+    g_rowAndColumnRolled = rollD6();
+    g_overrideNumberSelected = false;
+    g_overrideTrackSelected = false;
+
+    removeShadowFromGridTiles();
+
+    if (g_lastSelectedTile != "") lockPreviousTile();
+
+    $("#die_one").html(g_rowAndColumnRolled);
+    $("#die_two").html(getTrackImageHTML(g_trackTileRolled));
+
+    addShadowToRowsAndColumns();
+}
+
 function overrideTrackSelected(trackNumber) {
     if (g_overrideTrackSelected) {
         g_trackTileRolled = trackNumber;
@@ -166,7 +171,7 @@ function overrideTrackSelected(trackNumber) {
 }
 
 function makeAllTracksAvailable() {
-    $(".tile.grey").addClass("shadow");
+    $(".tile.white.track").addClass("shadow");
     
     g_overrideTrackSelected = true;
 }
@@ -208,7 +213,7 @@ function removeShadowFromRowsAndColumns() {
     $('[id*=' + g_rowAndColumnRolled + '].grey.tile').removeClass("shadow");
 }
 
-function removeShadowFromTrackTiles() {
+function removeShadowFromGridTiles() {
     $(".tile.grey").removeClass("shadow");
 }
 
