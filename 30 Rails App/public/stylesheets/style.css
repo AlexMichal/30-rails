@@ -3,9 +3,9 @@
 }
 
 #playfield {
-  float: left;
   width: 400px;
   height: 400px;
+  float: left;
 }
 
 #tracks {
@@ -14,8 +14,8 @@
 }
 
 #buttons {
-  float: left;
   width: 400px;
+  float: left;
 }
 
 .grid {

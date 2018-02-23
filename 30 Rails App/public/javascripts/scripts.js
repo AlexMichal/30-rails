@@ -43,7 +43,7 @@ $(document).ready(function() {
         }
     });
 
-    // roll dice:
+    // roll dice
     $(".tile.white.roll").on("click", function() {
         g_trackTileRolled = rollD6(); console.log(g_trackTileRolled);
         g_rowAndColumnRolled = rollD6(); console.log(g_rowAndColumnRolled);
@@ -59,7 +59,7 @@ $(document).ready(function() {
         addShadowToRowsAndColumns();
     });
 
-    // reset playfield:
+    // reset playfield
     $(".tile.white.reset").on("click", function() {
         resetPlayfield();
     });
@@ -122,53 +122,48 @@ $(document).ready(function() {
     // tracks:
     // track_one
     $("#track_one").on("click", function () {
-        if (g_overrideTrackSelected) {
-            
-        }
+        overrideTrackSelected(1);
     });
     
     // track_two
     $("#track_two").on("click", function () {
-        if (g_overrideTrackSelected) {
-            
-        }
+        overrideTrackSelected(2);
     });
     
     // track_three
     $("#track_three").on("click", function () {
-        if (g_overrideTrackSelected) {
-            
-        }
+        overrideTrackSelected(3);
     });
     
     // track_four
     $("#track_four").on("click", function () {
-        if (g_overrideTrackSelected) {
-            
-        }
+        overrideTrackSelected(4);
     });
     
     // track_five
     $("#track_five").on("click", function () {
-        if (g_overrideTrackSelected) {
-            
-        }
+        overrideTrackSelected(5);
     });
     
     // track_six_one
     $("#track_six_one").on("click", function () {
-        if (g_overrideTrackSelected) {
-            
-        }
+        overrideTrackSelected(6);
     });
     
     // track_six_two
     $("#track_six_two").on("click", function () {
-        if (g_overrideTrackSelected) {
-            
-        }
+        overrideTrackSelected(7);
     });
 });
+
+function overrideTrackSelected(trackNumber) {
+    if (g_overrideTrackSelected) {
+        g_trackTileRolled = trackNumber;
+        
+        // update track image.
+        $("#die_two").html(getTrackImageHTML(trackNumber));
+    }
+}
 
 function makeAllTracksAvailable() {
     $(".tile.grey").addClass("shadow");
