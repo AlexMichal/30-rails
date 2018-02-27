@@ -24,12 +24,28 @@
     border: 1px solid black;
 }
 
-.tile.grey {
-    background-color: grey;
+.tile.ground {
+    background-color: rgb(246,232,215);
+}
+
+.img_parent {
+    position: relative;
+    top: 0;
+    left: 0;
+}
+.img_track {
+    position: relative;
+    top: 0;
+    left: 0;
+}
+.img_ground {
+    position: absolute;
+    top: 0px;
+    left: 0px;
 }
 
 .tile.black {
-    background-color: lightgrey;
+    background-color: grey;
 }
 
 .shadow {

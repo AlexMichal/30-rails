@@ -20,13 +20,18 @@ var g_inputBoxes = [
 const ROTATE90 = "rotate90";
 const ROTATE180 = "rotate180";
 const ROTATE270 = "rotate270";
-const IMG_ONE = "https://i.imgur.com/a3AvSnV.png";
-const IMG_TWO = "https://i.imgur.com/TKWHoGj.png";
-const IMG_THREE = "https://i.imgur.com/G5jK8jC.png";
-const IMG_FOUR = "https://i.imgur.com/S8HmoXn.png";
-const IMG_FIVE = "https://i.imgur.com/OYwZfqr.png";
-const IMG_SIX_ONE = "https://i.imgur.com/oU5u4Ms.png";
-const IMG_SIX_TWO = "https://i.imgur.com/hJKwRQ8.png";
+const IMG_ONE = "1.png";
+const IMG_TWO = "2.png";
+const IMG_THREE = "3.png";
+const IMG_FOUR = "4.png";
+const IMG_FIVE = "5.png";
+const IMG_SIX_ONE = "6a.png";
+const IMG_SIX_TWO = "6b.png";
+const GROUND_IMAGES = [
+  "ground.png",
+  "ground2.png",
+  "ground3.png"
+];
 
 $(document).ready(function() {
     console.log("****************");
@@ -35,11 +40,13 @@ $(document).ready(function() {
     populateGrid();
 
     // playfield tiles:
-    $(".tile.grey").on("click", function() {
-        console.log("TILE GREY");
+    $(".tile.ground").on("click", function() {
+        console.log("TILE ground");
 
         // if the tile is NOT locked, a NEW track is selected, and if it's the correct row/column
         if ((!isLocked(this)) && (g_trackTileRolled !== 0) && (isInValidRowOrColumn(this) || g_overrideNumberSelected)) {
+            // TODO add 6 functionality
+
             if (g_lastSelectedTile == this &&
                 g_lastTrackTileRolled == g_trackTileRolled) {
                 // rotate.
@@ -215,13 +222,13 @@ function makeAllTracksAvailable() {
 }
 
 function makeAllUnlockedTilesAvailable() {
-    $(".tile.grey").addClass("shadow");
+    $(".tile.ground").addClass("shadow");
 
     g_overrideNumberSelected = true;
 }
 
 function resetPlayfield() {
-    $(".tile.grey").html("");
+    $(".tile.ground").html("");
 
     // reset variables.
     g_lockedTiles = [];
@@ -242,17 +249,17 @@ function setStations() {
 }
 
 function addShadowToRowsAndColumns() {
-    $('[id^=' + g_rowAndColumnRolled + '].grey.tile').addClass("shadow");
-    $('[id*=' + g_rowAndColumnRolled + '].grey.tile').addClass("shadow");
+    $('[id^=' + g_rowAndColumnRolled + '].ground.tile').addClass("shadow");
+    $('[id*=' + g_rowAndColumnRolled + '].ground.tile').addClass("shadow");
 }
 
 function removeShadowFromRowsAndColumns() {
-    $('[id^=' + g_rowAndColumnRolled + '].grey.tile').removeClass("shadow");
-    $('[id*=' + g_rowAndColumnRolled + '].grey.tile').removeClass("shadow");
+    $('[id^=' + g_rowAndColumnRolled + '].ground.tile').removeClass("shadow");
+    $('[id*=' + g_rowAndColumnRolled + '].ground.tile').removeClass("shadow");
 }
 
 function removeShadowFromGridTiles() {
-    $(".tile.grey").removeClass("shadow");
+    $(".tile.ground").removeClass("shadow");
 }
 
 function isInValidRowOrColumn(tile) {
@@ -292,12 +299,16 @@ function rotateTile(tile) {
 }
 
 function placeTile(tile) {
+    var html = "";
     // clear and reset the last tile location.
-    $(g_lastSelectedTile).html("");
+    removeTrackImageHTML(g_lastSelectedTile);
     removeRotate(g_lastSelectedTile);
 
+    // add track html to ground html
+    html = $(tile).html() + getTrackImageHTML(g_trackTileRolled);
+
     // place new tile.
-    $(tile).html(getTrackImageHTML(g_trackTileRolled));
+    $(tile).html(html);
 
     // set global variables.
     g_lastSelectedTile = tile;
@@ -305,6 +316,12 @@ function placeTile(tile) {
     g_tiledPlaced = true;
 
     console.log("g_trackTileRolled: " + g_trackTileRolled);
+}
+
+function removeTrackImageHTML(tile) {
+    //alert($(tile).parent().html()
+    $(tile).html(""); // TODO change this so that the background isn't removed
+    //$(tile + " > img:first-child").remove();
 }
 
 function getTrackImageHTML(numberOfTrackTile) {
@@ -336,7 +353,7 @@ function getTrackImageHTML(numberOfTrackTile) {
             image = "";
     }
 
-    return '<img src="' + image + '" width="50" height="50"/>';
+    return '<img class="img_track" src="images/' + image + '" width="50" height="50"/>';
 }
 
 function removeRotate(tile) {
@@ -379,12 +396,33 @@ function populateGrid() {
             } else if (i == 0 || i == 7 || j == 0 || j == 7) { // stations.
                 type = "station";
             } else { // tracks.
-                type = "grey";
+                type = "ground";
             }
 
-            html += '<div id="' + i + j + '" class="tile ' + type + '"></div>';
+            html += '<div id="' + i + j + '" class="tile ' + type + ' img_parent"></div>';
         }
     }
 
     $("#playfield").html(html);
+
+    addGroundToPlayfield();
+}
+
+function addGroundToPlayfield() {
+    $(".tile.ground").each(function() {
+        $(this).html(getARandomGroundImage());
+    });
+}
+
+function getARandomGroundImage() {
+    var html = ""
+    var imageFile = "";
+    var number = 0;
+
+    // randomize ground images.
+    number = Math.floor(Math.random() * 3 + 0); // between 0 and 2
+    imageFile = GROUND_IMAGES[number];
+    html = '<img class="img_ground" src=\"images/' + imageFile + '"\" width=\"50\" height=\"50\"/>';
+
+    return html;
 }
