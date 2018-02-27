@@ -5,6 +5,7 @@ var g_lastSelectedTile = "";
 var g_stationNumber;
 var g_overrideNumberSelected = false;
 var g_overrideTrackSelected = false;
+var g_overrideTrackSixSelected = false;
 var g_tilePlaced = false;
 var g_lockedTiles = [];
 var g_lockedStation = [];
@@ -188,6 +189,7 @@ function rollDice() {
     g_rowAndColumnRolled = rollD6();
     g_overrideNumberSelected = false;
     g_overrideTrackSelected = false;
+    g_overrideTrackSixSelected = false;
 
     removeShadowFromGridTiles();
 
@@ -197,15 +199,28 @@ function rollDice() {
     $("#die_two").html(getTrackImageHTML(g_trackTileRolled));
 
     addShadowToRowsAndColumns();
+
+    if (g_trackTileRolled === 6) {
+        // make track six tracks available:
+        $("#track_six_one").addClass("shadow");
+        $("#track_six_two").addClass("shadow");
+
+        g_overrideTrackSixSelected = true;
+    }
 }
 
 function overrideTrackSelected(trackNumber) {
-    if (g_overrideTrackSelected) {
+    if (g_overrideTrackSelected || g_overrideTrackSixSelected) {
         g_trackTileRolled = trackNumber;
         
         // update track image.
         $("#die_two").html(getTrackImageHTML(trackNumber));
     }
+    //  else if (g_overrideTrackSixSelected) {
+
+
+    //     $("#die_two").html(getTrackImageHTML(trackNumber));
+    // }
 }
 
 function makeAllTracksAvailable() {
