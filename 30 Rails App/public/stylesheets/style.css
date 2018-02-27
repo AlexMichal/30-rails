@@ -1,67 +1,89 @@
 .centered {
-  /* test */
+    /*width:1200px;*/
+    /*margin: 0 auto;*/
 }
 
 #playfield {
-  width: 400px;
-  height: 400px;
-  float: left;
+    width: 416px;
+    height: 416px;
 }
 
 #tracks {
-  width: 400px;
+    width: 416px;
 }
 
 #buttons {
-  width: 100px;
-  float: left;
+    width: 104px;
 }
 
-.grid {
-
-}
 
 .tile {
-  width: 50px;
-  height: 50px;
-  float: left;
-  border: 1px solid black;
+    width: 50px;
+    height: 50px;
+    float: left;
+    border: 1px solid black;
 }
 
 .tile.grey {
-  background-color: grey;
+    background-color: grey;
 }
 
 .tile.black {
-  background-color: lightgrey;
+    background-color: lightgrey;
 }
 
 .shadow {
-  -webkit-box-shadow: inset 0px 0px 5px 5px rgb(224, 123, 123);
-  box-shadow: inset 0px 0px 3px 3px rgb(224, 123, 123);
+    -webkit-box-shadow: inset 0px 0px 5px 5px rgb(224, 123, 123);
+    box-shadow: inset 0px 0px 3px 3px rgb(224, 123, 123);
 }
 
 /* ROTATION: */
- .rotate90 {
-   -webkit-transform: rotate(90deg);
-   -moz-transform: rotate(90deg);
-   -o-transform: rotate(90deg);
-   -ms-transform: rotate(90deg);
-   transform: rotate(90deg);
- }
+.rotate90 {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
 
 .rotate180 {
-  -webkit-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
-  -o-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
 .rotate270 {
-  -webkit-transform: rotate(270deg);
-  -moz-transform: rotate(270deg);
-  -o-transform: rotate(270deg);
-  -ms-transform: rotate(270deg);
-  transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    transform: rotate(270deg);
+}
+
+th, td {
+    border: 1px solid black;
+    width: 30px;
+    height: 30px;
+    padding: 8px;
+}
+
+#scoring_table td:nth-child(6) {
+    background-color: #d0d0d0;
+}
+
+input {
+    width: 25px;
+}
+
+/* page layout */
+.col {
+    float: left;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
 }
