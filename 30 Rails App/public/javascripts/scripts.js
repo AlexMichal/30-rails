@@ -46,8 +46,6 @@ $(document).ready(function() {
 
         // if the tile is NOT locked, a NEW track is selected, and if it's the correct row/column
         if ((!isLocked(this)) && (g_trackTileRolled !== 0) && (isInValidRowOrColumn(this) || g_overrideNumberSelected)) {
-            // TODO add 6 functionality
-
             if (g_lastSelectedTile == this &&
                 g_lastTrackTileRolled == g_trackTileRolled) {
                 // rotate.
@@ -192,13 +190,13 @@ function addUpSum() {
 }
 
 function rollDice() {
-    g_trackTileRolled = rollD6();
-    g_rowAndColumnRolled = rollD6();
+    g_trackTileRolled = getRandomNumber();
+    g_rowAndColumnRolled = getRandomNumber();
     g_overrideNumberSelected = false;
     g_overrideTrackSelected = false;
     g_overrideTrackSixSelected = false;
 
-    removeShadowFromGridTiles();
+    removeShadowFromGridAndTrackTiles();
 
     if (g_lastSelectedTile != "") lockPreviousTile();
 
@@ -273,8 +271,9 @@ function removeShadowFromRowsAndColumns() {
     $('[id*=' + g_rowAndColumnRolled + '].ground.tile').removeClass("shadow");
 }
 
-function removeShadowFromGridTiles() {
+function removeShadowFromGridAndTrackTiles() {
     $(".tile.ground").removeClass("shadow");
+    $(".tile.track").removeClass("shadow");
 }
 
 function isInValidRowOrColumn(tile) {
@@ -375,7 +374,7 @@ function removeRotate(tile) {
     // remove rotate with pattern matching TODO
 }
 
-function rollD6() {
+function getRandomNumber() {
     return Math.floor(Math.random() * 6 + 1);
 }
 
