@@ -185,7 +185,7 @@ function addUpSum() {
         $("." + element + "sum").val(rowSum);
 
         // display total sum (column).
-        $(".totalSum").val(colSum);
+        $(".totalSum").val(colSum); // TODO not working properly
     });
 }
 
