@@ -8,6 +8,14 @@ var g_overrideTrackSelected = false;
 var g_tilePlaced = false;
 var g_lockedTiles = [];
 var g_lockedStation = [];
+var g_inputBoxes = [
+    "1to2",
+    "1to3",
+    "1to4",
+    "2to3",
+    "2to4",
+    "3to4"
+];
 
 const ROTATE90 = "rotate90";
 const ROTATE180 = "rotate180";
@@ -143,7 +151,37 @@ $(document).ready(function() {
     $("#track_six_two").on("click", function () {
         overrideTrackSelected(7);
     });
+
+    // summing input boxes
+    $(document).on("change", "input", function() {
+        // sum each row
+        addUpSum(this);
+    });
 });
+
+function addUpSum() {
+    g_inputBoxes.forEach(function(element) {
+        var rowSum = 0;
+        var colSum = 0;
+
+        $("." + element).each(function() {
+            // add up each row.
+            rowSum += +$(this).val();
+
+            // add up all row sums.
+            colSum += rowSum;
+        });
+
+        // add up col sum with the mines value.
+        colSum += +$(".minesSum").val();
+
+        // display row sums.
+        $("." + element + "sum").val(rowSum);
+
+        // display total sum (column).
+        $(".totalSum").val(colSum);
+    });
+}
 
 function rollDice() {
     g_trackTileRolled = rollD6();
