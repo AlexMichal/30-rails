@@ -28,6 +28,10 @@
     background-color: rgb(246,232,215);
 }
 
+.tile.station {
+    background-color: rgb(221, 216, 212);
+}
+
 .img_parent {
     position: relative;
     top: 0;

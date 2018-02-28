@@ -33,6 +33,10 @@ const GROUND_IMAGES = [
   "ground2.png",
   "ground3.png"
 ];
+const STATION_GROUND_IMAGES = [
+  "station_ground.png",
+  "station_ground2.png"
+];
 
 $(document).ready(function() {
     console.log("****************");
@@ -419,24 +423,31 @@ function populateGrid() {
 
     $("#playfield").html(html);
 
-    addGroundToPlayfield();
+    addGroundToGrid();
 }
 
-function addGroundToPlayfield() {
+
+function addGroundToGrid() {
+    // playfield
     $(".tile.ground").each(function() {
-        $(this).html(getARandomGroundImage());
+        $(this).html(getARandomGroundImage(GROUND_IMAGES, 3));
+    });
+
+    // stations
+    $(".tile.station").each(function() {
+        $(this).html(getARandomGroundImage(STATION_GROUND_IMAGES, 2));
     });
 }
 
-function getARandomGroundImage() {
+function getARandomGroundImage(images, numberOfIterations) {
     var html = ""
     var imageFile = "";
     var number = 0;
 
     // randomize ground images.
-    number = Math.floor(Math.random() * 3 + 0); // between 0 and 2
-    imageFile = GROUND_IMAGES[number];
-    html = '<img class="img_ground" src=\"images/' + imageFile + '"\" width=\"50\" height=\"50\"/>';
+    number = Math.floor(Math.random() * numberOfIterations + 0); // between 0 and 2
+    imageFile = images[number];
+    html = '<img class="img_ground" src=\"images/' + imageFile + '"\" width=\"49\" height=\"49\"/>';
 
     return html;
 }
