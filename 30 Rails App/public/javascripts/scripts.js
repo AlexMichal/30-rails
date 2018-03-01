@@ -317,13 +317,13 @@ function rotateTile(tile) {
 
 function placeTile(tile) {
     var html = "";
+    
     // clear and reset the last tile location.
     removeTrackImageHTML(g_lastSelectedTile);
-    removeRotate(g_lastSelectedTile);
 
     // add track html to ground html
     html = $(tile).html() + getTrackImageHTML(g_trackTileRolled);
-
+    
     // place new tile.
     $(tile).html(html);
 
@@ -340,39 +340,35 @@ function removeTrackImageHTML(tile) {
 }
 
 function getTrackImageHTML(numberOfTrackTile) {
-    var image = "";
+    // var image = "";
 
-    switch (numberOfTrackTile) {
-        case 1:
-            image = IMG_ONE;
-            break;
-        case 2:
-            image = IMG_TWO;
-            break;
-        case 3:
-            image = IMG_THREE;
-            break;
-        case 4:
-            image = IMG_FOUR;
-            break;
-        case 5:
-            image = IMG_FIVE;
-            break;
-        case 6:
-            image = IMG_SIX_ONE;
-            break;
-        case 7:
-            image = IMG_SIX_TWO;
-            break;
-        default:
-            image = "";
-    }
+    // switch (numberOfTrackTile) {
+    //     case 1:
+    //         image = IMG_ONE;
+    //         break;
+    //     case 2:
+    //         image = IMG_TWO;
+    //         break;
+    //     case 3:
+    //         image = IMG_THREE;
+    //         break;
+    //     case 4:
+    //         image = IMG_FOUR;
+    //         break;
+    //     case 5:
+    //         image = IMG_FIVE;
+    //         break;
+    //     case 6:
+    //         image = IMG_SIX_ONE;
+    //         break;
+    //     case 7:
+    //         image = IMG_SIX_TWO;
+    //         break;
+    //     default:
+    //         image = "";
+    // }
 
     return '<img class="img_track" src="images/' + numberOfTrackTile + '.png" width="50" height="50"/>';
-}
-
-function removeRotate(tile) {
-    // remove rotate with pattern matching TODO
 }
 
 function getRandomNumber() {
