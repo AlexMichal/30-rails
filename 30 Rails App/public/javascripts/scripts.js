@@ -295,24 +295,30 @@ function lockPreviousTile() {
 }
 
 function rotateTile(tile) {
-    var currentTile = getClass(tile);
-
-    if (isInString(currentTile, ROTATE270)) {
+    var classOfTile = getClass($(tile).children(".img_track"));
+    
+    if (isInString(classOfTile, ROTATE270)) {
         // rotate 360 degrees.
-        $(tile).removeClass(ROTATE270);
-    } else if (isInString(currentTile, ROTATE180)) {
+        $(tile)
+            .children(".img_track")
+            .removeClass(ROTATE270);
+    } else if (isInString(classOfTile, ROTATE180)) {
         // rotate 270 degrees.
         $(tile)
+            .children(".img_track")
             .removeClass(ROTATE180)
             .addClass(ROTATE270);
-    } else if (isInString(currentTile, ROTATE90)) {
+    } else if (isInString(classOfTile, ROTATE90)) {
         // rotate 180 degrees.
         $(tile)
+            .children(".img_track")
             .removeClass(ROTATE90)
             .addClass(ROTATE180);
     } else {
         // rotate 90 degrees.
-        $(tile).addClass(ROTATE90);
+        $(tile)
+            .children(".img_track")
+            .addClass(ROTATE90);
     }
 }
 
@@ -337,9 +343,7 @@ function placeTile(tile) {
 }
 
 function removeTrackImageHTML(tile) {
-    //alert($(tile).parent().html()
-    $(tile).html(""); // TODO change this so that the background isn't removed
-    //$(tile + " > img:first-child").remove();
+    $(tile).children(".img_track").remove(); // TODO change this so that the background isn't removed
 }
 
 function getTrackImageHTML(numberOfTrackTile) {
