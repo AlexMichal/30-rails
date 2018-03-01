@@ -21,13 +21,6 @@ var g_inputBoxes = [
 const ROTATE90 = "rotate90";
 const ROTATE180 = "rotate180";
 const ROTATE270 = "rotate270";
-const IMG_ONE = "1.png";
-const IMG_TWO = "2.png";
-const IMG_THREE = "3.png";
-const IMG_FOUR = "4.png";
-const IMG_FIVE = "5.png";
-const IMG_SIX_ONE = "6a.png";
-const IMG_SIX_TWO = "6b.png";
 const GROUND_IMAGES = [
   "ground.png",
   "ground2.png",
@@ -375,7 +368,7 @@ function getTrackImageHTML(numberOfTrackTile) {
             image = "";
     }
 
-    return '<img class="img_track" src="images/' + image + '" width="50" height="50"/>';
+    return '<img class="img_track" src="images/' + numberOfTrackTile + '.png" width="50" height="50"/>';
 }
 
 function removeRotate(tile) {
