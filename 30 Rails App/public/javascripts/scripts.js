@@ -1,3 +1,4 @@
+var g_currentGameMode = ""
 var g_trackTileRolled = 0;
 var g_rowAndColumnRolled = 0;
 var g_lastTrackTileRolled = 0;
@@ -30,6 +31,10 @@ const STATION_GROUND_IMAGES = [
   "station_ground.png",
   "station_ground2.png"
 ];
+var GAME_MODE = Object.freeze({
+    "SETUP" : 1,
+    "PLAYING" : 2
+});
 
 $(document).ready(function() {
     console.log("****************");
@@ -39,17 +44,19 @@ $(document).ready(function() {
 
     // playfield tiles:
     $(".tile.ground").on("click", function() {
-        console.log("TILE ground");
+        if (g_currentGameMode == GAME_MODE.SETUP) {
 
-        // if the tile is NOT locked, a NEW track is selected, and if it's the correct row/column
-        if ((!isLocked(this)) && (g_trackTileRolled !== 0) && (isInValidRowOrColumn(this) || g_overrideNumberSelected)) {
-            if (g_lastSelectedTile == this &&
-                g_lastTrackTileRolled == g_trackTileRolled) {
-                // rotate.
-                rotateTile(this);
-            } else {
-                // place tile.
-                placeTile(this);
+        } else if (g_currentGameMode == GAME_MODE.PLAYING || true) { // TODO remove true once you're ready
+            // if the tile is NOT locked, a NEW track is selected, and if it's the correct row/column
+            if ((!isLocked(this)) && (g_trackTileRolled !== 0) && (isInValidRowOrColumn(this) || g_overrideNumberSelected)) {
+                if (g_lastSelectedTile == this &&
+                    g_lastTrackTileRolled == g_trackTileRolled) {
+                    // rotate.
+                    rotateTile(this);
+                } else {
+                    // place tile.
+                    placeTile(this);
+                }
             }
         }
     });
@@ -61,51 +68,53 @@ $(document).ready(function() {
 
     // reset playfield
     $(".tile.white.reset").on("click", function() {
-        resetPlayfield();
+        resetGame();
     });
 
     // stations:
     // top
-    $("[id^='0'].tile.station").on("click", function() {
-        if (!g_lockedStation.includes("top")) {
-            g_lockedStation.push("top");
+    $(".tile.top.station").on("click", function() {
+        if (g_currentGameMode == GAME_MODE.SETUP) {
+            if (!g_lockedStation.includes("top")) { 
+                g_lockedStation.push("top");
+                
+                $(this).html(++g_stationNumber);
 
-            $(this).html(++g_stationNumber);
-
-            $("[id^='0'].tile.station").removeClass("shadow");
+                $(".tile.top.station").removeClass("shadow");
+            }
         }
     });
 
     // left
-    $("[id$='0'].tile.station").on("click", function() {
+    $(".tile.left.station").on("click", function() {
         if (!g_lockedStation.includes("left")) {
             g_lockedStation.push("left");
 
             $(this).html(++g_stationNumber);
 
-            $("[id$='0'].tile.station").removeClass("shadow");
+            $(".tile.left.station").removeClass("shadow");
         }
     });
 
     // bottom
-    $("[id^='7'].tile.station").on("click", function() {
+    $(".tile.bottom.station").on("click", function() {
         if (!g_lockedStation.includes("bottom")) {
             g_lockedStation.push("bottom");
 
             $(this).html(++g_stationNumber);
 
-            $("[id^='7'].tile.station").removeClass("shadow");
+            $(".tile.bottom.station").removeClass("shadow");
         }
     });
 
     // right
-    $("[id$='7'].tile.station").on("click", function() {
+    $(".tile.right.station").on("click", function() {
         if (!g_lockedStation.includes("right")) {
             g_lockedStation.push("right");
 
             $(this).html(++g_stationNumber);
 
-            $("[id$='7'].tile.station").removeClass("shadow");
+            $(".tile.right.station").removeClass("shadow");
         }
     });
 
@@ -218,11 +227,6 @@ function overrideTrackSelected(trackNumber) {
         // update track image.
         $("#die_two").html(getTrackImageHTML(trackNumber));
     }
-    //  else if (g_overrideTrackSixSelected) {
-
-
-    //     $("#die_two").html(getTrackImageHTML(trackNumber));
-    // }
 }
 
 function makeAllTracksAvailable() {
@@ -237,17 +241,18 @@ function makeAllUnlockedTilesAvailable() {
     g_overrideNumberSelected = true;
 }
 
-function resetPlayfield() {
-    $(".tile.ground").html("");
-
+function resetGame() {
     // reset variables.
     g_lockedTiles = [];
     g_lastSelectedTile = "";
     g_trackTileRolled = "";
     g_stationNumber = 0;
     g_lockedStation = [];
+    // TODO set game mode to setup
+    
+    // remove all track images from the playfield.
+    $(".tile.ground").children(".img_track").remove();
 
-    $(".tile.station").html("");
     $(".tile").removeClass("shadow");
 
     // start game.
@@ -369,7 +374,7 @@ function populateGrid() {
     var html = "";
     var type = "";
 
-    for (var i = 0; i < GRID_SIZE; i++) {
+    for (var i = 0; i < GRID_SIZE; i++) { // TODO fix this mess.
         for (var j = 0; j < GRID_SIZE; j++) {
             if ((i == 0 && j == 0) ||
                 (i == 0 && j == GRID_SIZE - 1) ||
@@ -415,4 +420,8 @@ function getARandomGroundImage(images, numberOfIterations) {
     html = '<img class="img_ground" src=\"images/' + imageFile + '"\" width=\"49\" height=\"49\"/>';
 
     return html;
+}
+
+function setMountainTiles() {
+
 }
