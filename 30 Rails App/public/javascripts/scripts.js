@@ -42,22 +42,28 @@ $(document).ready(function() {
     // create playfield.
     populateGrid();
 
+    g_currentGameMode = GAME_MODE.PLAYING;
+
     // playfield tiles:
     $(".tile.ground").on("click", function() {
-        if (g_currentGameMode == GAME_MODE.SETUP) {
+        switch (g_currentGameMode) {
+            case GAME_MODE.SETUP:
+                // TODO add functionality for adding and removing mountain tiles.
+                $(this).html(getARandomImage(STATION_GROUND_IMAGES, "img_mountain"));
+                
 
-        } else if (g_currentGameMode == GAME_MODE.PLAYING || true) { // TODO remove true once you're ready
-            // if the tile is NOT locked, a NEW track is selected, and if it's the correct row/column
-            if ((!isLocked(this)) && (g_trackTileRolled !== 0) && (isInValidRowOrColumn(this) || g_overrideNumberSelected)) {
-                if (g_lastSelectedTile == this &&
-                    g_lastTrackTileRolled == g_trackTileRolled) {
-                    // rotate.
-                    rotateTile(this);
-                } else {
-                    // place tile.
-                    placeTile(this);
+                break;
+            case GAME_MODE.PLAYING:
+                // if the tile is NOT locked, a NEW track is selected, and if it's the correct row/column
+                if ((!isLocked(this)) && (g_trackTileRolled !== 0) && (isInValidRowOrColumn(this) || g_overrideNumberSelected)) {
+                    if (g_lastSelectedTile == this &&
+                        g_lastTrackTileRolled == g_trackTileRolled) {
+                        rotateTile(this);
+                    } else {
+                        placeTile(this);
+                    }
                 }
-            }
+                break;
         }
     });
 
@@ -248,19 +254,16 @@ function resetGame() {
     g_trackTileRolled = "";
     g_stationNumber = 0;
     g_lockedStation = [];
-    // TODO set game mode to setup
+    g_currentGameMode = GAME_MODE.SETUP;
     
     // remove all track images from the playfield.
     $(".tile.ground").children(".img_track").remove();
 
     $(".tile").removeClass("shadow");
 
-    // start game.
-    setStations();
-}
-
-function setStations() {
-    $(".station").addClass("shadow");
+    // add shadows to playfield and station tiles.
+    $(".tile.station").addClass("shadow");
+    $(".tile.ground").addClass("shadow");
 }
 
 function addShadowToRowsAndColumns() {
@@ -400,28 +403,24 @@ function populateGrid() {
 function addGroundToGrid() {
     // playfield
     $(".tile.ground").each(function() {
-        $(this).html(getARandomGroundImage(GROUND_IMAGES, 3));
+        $(this).html(getARandomImage(GROUND_IMAGES, "img_ground"));
     });
 
     // stations
     $(".tile.station").each(function() {
-        $(this).html(getARandomGroundImage(STATION_GROUND_IMAGES, 2));
+        $(this).html(getARandomImage(STATION_GROUND_IMAGES, "img_ground"));
     });
 }
 
-function getARandomGroundImage(images, numberOfIterations) {
+function getARandomImage(images, className) {
     var html = ""
     var imageFile = "";
     var number = 0;
 
-    // randomize ground images.
-    number = Math.floor(Math.random() * numberOfIterations + 0); // between 0 and 2
+    // randomize images.
+    number = Math.floor(Math.random() * images.length + 0); // between 0 and numberOfIterations
     imageFile = images[number];
-    html = '<img class="img_ground" src=\"images/' + imageFile + '"\" width=\"49\" height=\"49\"/>';
+    html = '<img class="' + className + '" src=\"images/' + imageFile + '"\" width=\"49\" height=\"49\"/>';
 
     return html;
-}
-
-function setMountainTiles() {
-
 }
