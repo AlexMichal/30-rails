@@ -16,6 +16,7 @@
   width: 138.66667px;
 }
 
+/* tiles */
 .tile {
   width: 50px;
   height: 50px;
@@ -27,9 +28,10 @@
   background-color: #f6e8d7;
 }
 
-.tile.station {
+.tile.station, .tile.corner {
   background-color: #ddd8d4;
 }
+/* tiles END */
 
 .img_parent {
   position: relative;
@@ -47,10 +49,6 @@
   position: absolute;
   top: 0px;
   left: 0px;
-}
-
-.tile.black {
-  background-color: lightblue;
 }
 
 .shadow {

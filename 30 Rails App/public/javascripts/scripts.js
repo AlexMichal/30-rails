@@ -27,9 +27,10 @@ const GROUND_IMAGES = [
   "ground2.png",
   "ground3.png"
 ];
-const STATION_GROUND_IMAGES = [
-  "station_ground.png",
-  "station_ground2.png"
+const MOUNTAIN_IMAGES = [
+  "mountain.png",
+  "mountain2.png",
+  "mountain3.png"
 ];
 var GAME_MODE = Object.freeze({
     "SETUP" : 1,
@@ -49,7 +50,7 @@ $(document).ready(function() {
         switch (g_currentGameMode) {
             case GAME_MODE.SETUP:
                 // TODO add functionality for adding and removing mountain tiles.
-                $(this).html(getARandomImage(STATION_GROUND_IMAGES, "img_mountain"));
+                $(this).html(getARandomImage(MOUNTAIN_IMAGES, "img_mountain"));
                 
 
                 break;
@@ -383,7 +384,7 @@ function populateGrid() {
                 (i == 0 && j == GRID_SIZE - 1) ||
                 (i == GRID_SIZE - 1 && j == 0) ||
                 (i == GRID_SIZE - 1 && j == GRID_SIZE - 1)) { // corners.
-                type = "black";
+                type = "corner";
             } else if (i == 0 || i == 7 || j == 0 || j == 7) { // stations.
                 type = "station";
             } else { // tracks.
@@ -406,9 +407,9 @@ function addGroundToGrid() {
         $(this).html(getARandomImage(GROUND_IMAGES, "img_ground"));
     });
 
-    // stations
-    $(".tile.station").each(function() {
-        $(this).html(getARandomImage(STATION_GROUND_IMAGES, "img_ground"));
+    // stations and corners
+    $(".tile.station, .tile.corner").each(function() {
+        $(this).html(getARandomImage(MOUNTAIN_IMAGES, "img_ground"));
     });
 }
 
