@@ -59,6 +59,11 @@ $playfieldWidthAndHeight: 416px;
     box-shadow: inset 0px 0px 3px 3px rgb(224, 123, 123);
 }
 
+.shadow_blue {
+    -webkit-box-shadow: inset 0px 0px 5px 5px rgb(0, 139, 224);
+    box-shadow: inset 0px 0px 3px 3px rgb(0, 139, 224);
+}
+
 /* ROTATION: */
 .rotate90 {
     -webkit-transform: rotate(90deg);
@@ -108,4 +113,17 @@ input {
     content: "";
     display: table;
     clear: both;
+}
+
+/* tilt */
+.tilt {
+    -ms-transform: rotate(7deg); /* IE 9 */
+    -webkit-transform: rotate(7deg); /* Safari 3-8 */
+    transform: rotate(7deg);
+}
+
+#roll_number > img:hover {
+    -ms-transform: rotate(0deg); /* IE 9 */
+    -webkit-transform: rotate(0deg); /* Safari 3-8 */
+    transform: rotate(0deg);
 }

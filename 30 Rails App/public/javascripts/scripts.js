@@ -7,7 +7,6 @@ var g_stationNumber;
 var g_overrideNumberSelected = false;
 var g_overrideTrackSelected = false;
 var g_overrideTrackSixSelected = false;
-var g_tilePlaced = false;
 var g_lockedTiles = [];
 var g_lockedStation = [];
 var g_inputBoxes = [
@@ -18,6 +17,10 @@ var g_inputBoxes = [
     "2to4",
     "3to4"
 ];
+var GAME_MODE = Object.freeze({
+    "SETUP" : 1,
+    "PLAYING" : 2
+});
 
 const ROTATE90 = "rotate90";
 const ROTATE180 = "rotate180";
@@ -32,10 +35,6 @@ const MOUNTAIN_IMAGES = [
   "mountain2.png",
   "mountain3.png"
 ];
-var GAME_MODE = Object.freeze({
-    "SETUP" : 1,
-    "PLAYING" : 2
-});
 
 $(document).ready(function() {
     console.log("****************");
@@ -213,8 +212,8 @@ function rollDice() {
 
     if (g_lastSelectedTile != "") lockPreviousTile();
 
-    $("#die_one").html(g_rowAndColumnRolled);
-    $("#die_two").html(getTrackImageHTML(g_trackTileRolled));
+    $("#roll_number").html(getImageHTML("dice", g_rowAndColumnRolled, "img_dice"));
+    $("#roll_track").html(getImageHTML("track", g_trackTileRolled, "img_track"));
 
     addShadowToRowsAndColumns();
 
@@ -232,7 +231,7 @@ function overrideTrackSelected(trackNumber) {
         g_trackTileRolled = trackNumber;
         
         // update track image.
-        $("#die_two").html(getTrackImageHTML(trackNumber));
+        $("#roll_track").html(getImageHTML("track", g_trackTileRolled, "img_track"));
     }
 }
 
@@ -270,11 +269,6 @@ function resetGame() {
 function addShadowToRowsAndColumns() {
     $('[id^=' + g_rowAndColumnRolled + '].ground.tile').addClass("shadow");
     $('[id*=' + g_rowAndColumnRolled + '].ground.tile').addClass("shadow");
-}
-
-function removeShadowFromRowsAndColumns() {
-    $('[id^=' + g_rowAndColumnRolled + '].ground.tile').removeClass("shadow");
-    $('[id*=' + g_rowAndColumnRolled + '].ground.tile').removeClass("shadow");
 }
 
 function removeShadowFromGridAndTrackTiles() {
@@ -331,7 +325,7 @@ function placeTile(tile) {
     removeTrackImageHTML(g_lastSelectedTile);
 
     // add track html to ground html
-    html = $(tile).html() + getTrackImageHTML(g_trackTileRolled);
+    html = $(tile).html() + getImageHTML("track", g_trackTileRolled, "img_track");
     
     // place new tile.
     $(tile).html(html);
@@ -339,17 +333,20 @@ function placeTile(tile) {
     // set global variables.
     g_lastSelectedTile = tile;
     g_lastTrackTileRolled = g_trackTileRolled;
-    g_tiledPlaced = true;
 
     console.log("g_trackTileRolled: " + g_trackTileRolled);
 }
 
 function removeTrackImageHTML(tile) {
-    $(tile).children(".img_track").remove(); // TODO change this so that the background isn't removed
+    $(tile).children(".img_track").remove();
 }
 
-function getTrackImageHTML(numberOfTrackTile) {
+/*function getTrackImageHTML(numberOfTrackTile) {
     return '<img class="img_track" src="images/' + numberOfTrackTile + '.png" width="50" height="50"/>';
+}*/
+
+function getImageHTML(filenamePrefix, filenameNumber, className) {
+    return '<img class="' + className + '" src="images/' + filenamePrefix + filenameNumber + '.png" width="50" height="50"/>';
 }
 
 function getRandomNumber() {
