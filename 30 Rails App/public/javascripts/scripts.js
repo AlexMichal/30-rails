@@ -1,14 +1,17 @@
 var g_currentGameMode = ""
 var g_trackTileRolled = 0;
 var g_rowAndColumnRolled = 0;
+var g_mountainRow = 0;
 var g_lastTrackTileRolled = 0;
 var g_lastSelectedTile = "";
 var g_stationNumber;
 var g_overrideNumberSelected = false;
 var g_overrideTrackSelected = false;
 var g_overrideTrackSixSelected = false;
+var g_skipPressed = false;
 var g_lockedTiles = [];
 var g_lockedStation = [];
+var g_lockedMountains = [];
 var g_inputBoxes = [
     "1to2",
     "1to3",
@@ -21,46 +24,51 @@ var GAME_MODE = Object.freeze({
     "SETUP" : 1,
     "PLAYING" : 2
 });
+var TILE_TYPE = Object.freeze({
+    "TRACK" : 1,
+    "MOUNTAIN" : 2
+});
 
 const ROTATE90 = "rotate90";
 const ROTATE180 = "rotate180";
 const ROTATE270 = "rotate270";
 const GROUND_IMAGES = [
-  "ground.png",
+  "ground1.png",
   "ground2.png",
   "ground3.png"
 ];
 const MOUNTAIN_IMAGES = [
-  "mountain.png",
+  "mountain1.png",
   "mountain2.png",
   "mountain3.png"
 ];
 
 $(document).ready(function() {
-    console.log("****************");
+    g_currentGameMode = GAME_MODE.PLAYING;
 
     // create playfield.
-    populateGrid();
-
-    g_currentGameMode = GAME_MODE.PLAYING;
+    populatePlayfieldGrid();
 
     // playfield tiles:
     $(".tile.ground").on("click", function() {
         switch (g_currentGameMode) {
             case GAME_MODE.SETUP:
-                // TODO add functionality for adding and removing mountain tiles.
-                $(this).html(getARandomImage(MOUNTAIN_IMAGES, "img_mountain"));
-                
+                // choose mountains first.
+                // if (isInValidRowOrColumn(this, g_mountainRow)) {
+                //     placeTile(this, TILE_TYPE.MOUNTAIN);
+                // }
+
+                // choose stations second.
 
                 break;
             case GAME_MODE.PLAYING:
                 // if the tile is NOT locked, a NEW track is selected, and if it's the correct row/column
-                if ((!isLocked(this)) && (g_trackTileRolled !== 0) && (isInValidRowOrColumn(this) || g_overrideNumberSelected)) {
+                if ((!isLocked(this)) && (g_trackTileRolled !== 0) && (isInValidRowOrColumn(this, g_rowAndColumnRolled) || g_overrideNumberSelected)) {
                     if (g_lastSelectedTile == this &&
                         g_lastTrackTileRolled == g_trackTileRolled) {
                         rotateTile(this);
                     } else {
-                        placeTile(this);
+                        placeTile(this, TILE_TYPE.TRACK);
                     }
                 }
                 break;
@@ -73,8 +81,13 @@ $(document).ready(function() {
     });
 
     // reset playfield
-    $(".tile.white.reset").on("click", function() {
+    $("#btn_reset").on("click", function() {
         resetGame();
+    });
+
+    // skip mountain tile.
+    $("#btn_skip").on("click", function() {
+        skipLastMountainTile();
     });
 
     // stations:
@@ -202,28 +215,46 @@ function addUpSum() {
 }
 
 function rollDice() {
-    g_trackTileRolled = getRandomNumber();
     g_rowAndColumnRolled = getRandomNumber();
     g_overrideNumberSelected = false;
     g_overrideTrackSelected = false;
     g_overrideTrackSixSelected = false;
+    
+    clearShadowFromTheGrid();
 
-    removeShadowFromGridAndTrackTiles();
+    switch (g_currentGameMode) {
+        case GAME_MODE.SETUP:
+            // mountain selection:
+            addShadowToRow(++g_mountainRow);
 
-    if (g_lastSelectedTile != "") lockPreviousTile();
+            $("#roll_track").html(getImageHTML("mountain", MOUNTAIN_IMAGES.length, "img_mountain"));
 
-    $("#roll_number").html(getImageHTML("dice", g_rowAndColumnRolled, "img_dice"));
-    $("#roll_track").html(getImageHTML("track", g_trackTileRolled, "img_track"));
+            placeTile($('[id=' + g_mountainRow + g_rowAndColumnRolled + '].ground.tile'), TILE_TYPE.MOUNTAIN);
 
-    addShadowToRowsAndColumns();
+            // add mountain tile to lockedList
+            if (g_lastSelectedTile != "") g_lockedTiles.push(tileId);
 
-    if (g_trackTileRolled === 6) {
-        // make track six tracks available:
-        $("#track_six_one").addClass("shadow");
-        $("#track_six_two").addClass("shadow");
+            break;
+        case GAME_MODE.PLAYING:
+            g_trackTileRolled = getRandomNumber();
+            
+            addShadowToRowsAndColumns();
 
-        g_overrideTrackSixSelected = true;
+            if (g_lastSelectedTile != "") lockTile();
+
+            $("#roll_number").html(getImageHTML("dice", g_rowAndColumnRolled, "img_dice"));
+            $("#roll_track").html(getImageHTML("track", g_trackTileRolled, "img_track"));
+
+            // make track six tracks available:
+            if (g_trackTileRolled === 6) {
+                $("#track_six_one").addClass("shadow");
+                $("#track_six_two").addClass("shadow");
+
+                g_overrideTrackSixSelected = true;
+            }
+            break;
     }
+    
 }
 
 function overrideTrackSelected(trackNumber) {
@@ -248,42 +279,43 @@ function makeAllUnlockedTilesAvailable() {
 }
 
 function resetGame() {
-    // reset variables.
-    g_lockedTiles = [];
+    // reset variables
     g_lastSelectedTile = "";
     g_trackTileRolled = "";
     g_stationNumber = 0;
+    g_skipPressed = false;
+    g_mountainRow = 0;
     g_lockedStation = [];
+    g_lockedTiles = [];
     g_currentGameMode = GAME_MODE.SETUP;
     
-    // remove all track images from the playfield.
+    // remove all track and mountain images, and shadows from the playfield
     $(".tile.ground").children(".img_track").remove();
-
+    $(".tile.ground").children(".img_mountain").remove();
     $(".tile").removeClass("shadow");
+}
 
-    // add shadows to playfield and station tiles.
-    $(".tile.station").addClass("shadow");
-    $(".tile.ground").addClass("shadow");
+function addShadowToRow(number) {
+    $('[id^=' + number + '].ground.tile').addClass("shadow"); // row
 }
 
 function addShadowToRowsAndColumns() {
-    $('[id^=' + g_rowAndColumnRolled + '].ground.tile').addClass("shadow");
-    $('[id*=' + g_rowAndColumnRolled + '].ground.tile').addClass("shadow");
+    $('[id^=' + g_rowAndColumnRolled + '].ground.tile').addClass("shadow"); // column
+    $('[id*=' + g_rowAndColumnRolled + '].ground.tile').addClass("shadow"); // row
 }
 
-function removeShadowFromGridAndTrackTiles() {
-    $(".tile.ground").removeClass("shadow");
-    $(".tile.track").removeClass("shadow");
+function clearShadowFromTheGrid() {
+    $(".tile").removeClass("shadow");
 }
 
-function isInValidRowOrColumn(tile) {
-    return isInString(getId(tile), g_rowAndColumnRolled);
+function isInValidRowOrColumn(tile, rowAndColumn) {
+    return isInString(getId(tile), rowAndColumn);
 }
 
-function lockPreviousTile() {
-    g_lockedTiles.push(g_lastSelectedTile.id);
+function lockTile(tileId = g_lastSelectedTile.id) { // TODO rename and/or look at this.
+    g_lockedTiles.push(tileId);
 
-    $(g_lastSelectedTile).addClass("locked");
+    //$(g_lastSelectedTile).addClass("locked");
 
     // reset tile variables.
     g_lastSelectedTile = "";
@@ -318,14 +350,23 @@ function rotateTile(tile) {
     }
 }
 
-function placeTile(tile) {
+function placeTile(tile, tileType) {
     var html = "";
-    
-    // clear and reset the last tile location.
-    removeTrackImageHTML(g_lastSelectedTile);
 
     // add track html to ground html
-    html = $(tile).html() + getImageHTML("track", g_trackTileRolled, "img_track");
+    switch (tileType) {
+        case TILE_TYPE.TRACK:
+            // clear and reset the last tile location
+            $(g_lastSelectedTile).children(".img_track").remove();
+
+            html = $(tile).html() + getImageHTML("track", g_trackTileRolled, "img_track");
+
+            break;
+        case TILE_TYPE.MOUNTAIN:
+            html = $(tile).html() + getRandomImageHTML(MOUNTAIN_IMAGES, "img_mountain");
+
+            break;
+    }
     
     // place new tile.
     $(tile).html(html);
@@ -333,24 +374,16 @@ function placeTile(tile) {
     // set global variables.
     g_lastSelectedTile = tile;
     g_lastTrackTileRolled = g_trackTileRolled;
-
+    
     console.log("g_trackTileRolled: " + g_trackTileRolled);
 }
-
-function removeTrackImageHTML(tile) {
-    $(tile).children(".img_track").remove();
-}
-
-/*function getTrackImageHTML(numberOfTrackTile) {
-    return '<img class="img_track" src="images/' + numberOfTrackTile + '.png" width="50" height="50"/>';
-}*/
 
 function getImageHTML(filenamePrefix, filenameNumber, className) {
     return '<img class="' + className + '" src="images/' + filenamePrefix + filenameNumber + '.png" width="50" height="50"/>';
 }
 
-function getRandomNumber() {
-    return Math.floor(Math.random() * 6 + 1);
+function getRandomNumber(maxNumber = 6) {
+    return Math.floor(Math.random() * maxNumber + 1);
 }
 
 function isLocked(tile) {
@@ -369,7 +402,7 @@ function isInString(str, subStr) {
     return str.indexOf(subStr) != -1;
 }
 
-function populateGrid() {
+function populatePlayfieldGrid() {
     const GRID_SIZE = 8;
 
     var html = "";
@@ -401,16 +434,16 @@ function populateGrid() {
 function addGroundToGrid() {
     // playfield
     $(".tile.ground").each(function() {
-        $(this).html(getARandomImage(GROUND_IMAGES, "img_ground"));
+        $(this).html(getRandomImageHTML(GROUND_IMAGES, "img_ground"));
     });
 
     // stations and corners
     $(".tile.station, .tile.corner").each(function() {
-        $(this).html(getARandomImage(MOUNTAIN_IMAGES, "img_ground"));
+        $(this).html(getRandomImageHTML(MOUNTAIN_IMAGES, "img_ground"));
     });
 }
 
-function getARandomImage(images, className) {
+function getRandomImageHTML(images, className) {
     var html = ""
     var imageFile = "";
     var number = 0;
@@ -418,7 +451,21 @@ function getARandomImage(images, className) {
     // randomize images.
     number = Math.floor(Math.random() * images.length + 0); // between 0 and numberOfIterations
     imageFile = images[number];
-    html = '<img class="' + className + '" src=\"images/' + imageFile + '"\" width=\"49\" height=\"49\"/>';
+    html = '<img class="' + className + '" src=\"images/' + imageFile + '"\ width=\"49\" height=\"49\"/>';
 
     return html;
+}
+
+function skipLastMountainTile() {
+    // remove last selected tile.
+    $(g_lastSelectedTile).children(".img_mountain").remove();
+
+    // remove from locked tile list.
+    g_lockedTiles.pop; // TODO make sure this works right
+    
+    // set skip variable as true.
+    g_skipPressed = true;
+
+    // blank out tile.
+    // TODO
 }
