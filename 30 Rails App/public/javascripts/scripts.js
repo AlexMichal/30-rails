@@ -21,12 +21,15 @@ var g_inputBoxes = [
     "3to4"
 ];
 var GAME_MODE = Object.freeze({
-    "SETUP" : 1,
-    "PLAYING" : 2
+    "PLAYING" : 1,
+    "SETUP" : 2,
+    "MOUNTAIN" : 3,
+    "STATION" : 4
 });
 var TILE_TYPE = Object.freeze({
     "TRACK" : 1,
-    "MOUNTAIN" : 2
+    "MOUNTAIN" : 2,
+    "STATION" : "station" // TODO can i do something with this?
 });
 
 const ROTATE90 = "rotate90";
@@ -190,9 +193,25 @@ $(document).ready(function() {
         addUpSum(this);
     });
 
+    $(".tile.station").on("click", function() {
+        if (g_currentGameMode === GAME_MODE.STATION) {
+            placeTile(this, TILE_TYPE.STATION);
+        }
+    });
+
     $("#btn_set_station").on("click", function() {
         // TODO add functionality for setting stations
+        g_currentGameMode = GAME_MODE.STATION;
+
         // add shadow to each side row and column
+        if (g_lockedStation.length === 4) {
+            // grey out this button. the only way to ungrey it is to reset the whole game.
+
+            $(this).removeClass("shadow_blue");
+        } else {
+            // add blue shadow to this button
+            $(this).addClass("shadow_blue");
+        }
         // once you click on this button again AND all 4 sides have a station, 
         // --> add the tiles to the station array
     });
@@ -231,7 +250,7 @@ function rollDice() {
     clearShadowFromTheGrid();
 
     switch (g_currentGameMode) {
-        case GAME_MODE.SETUP:
+        case GAME_MODE.MOUNTAIN:
             setMountainTile();
             
             break;
@@ -357,11 +376,14 @@ function placeTile(tile, tileType) {
 
     // add track html to ground html
     switch (tileType) {
-        case TILE_TYPE.TRACK:
+        case TILE_TYPE.TRACK: // TODO change this so we use objects instead
             html = $(tile).html() + getImageHTML("track", g_trackTileRolled, "img_track");
             break;
         case TILE_TYPE.MOUNTAIN:
             html = $(tile).html() + getRandomImageHTML(MOUNTAIN_IMAGES, "img_mountain");
+            break;
+        case TILE_TYPE.STATION:
+            html = $(tile).html() + getImageHTML("station", "", "img_station");
             break;
     }
     
