@@ -189,6 +189,13 @@ $(document).ready(function() {
         // sum each row
         addUpSum(this);
     });
+
+    $("#btn_set_station").on("click", function() {
+        // TODO add functionality for setting stations
+        // add shadow to each side row and column
+        // once you click on this button again AND all 4 sides have a station, 
+        // --> add the tiles to the station array
+    });
 });
 
 function addUpSum() { // TODO doesnt work properly
