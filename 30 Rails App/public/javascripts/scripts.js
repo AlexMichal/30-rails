@@ -1,17 +1,17 @@
 var g_currentGameMode = ""
-var g_trackTileRolled = 0;
-var g_rowAndColumnRolled = 0;
 var g_mountainRow = 0;
 var g_lastTrackTileRolled = 0;
 var g_lastSelectedTile = "";
-var g_stationNumber;
-var g_overrideNumberSelected = false;
-var g_overrideTrackSelected = false;
-var g_overrideTrackSixSelected = false;
-var g_skipPressed = false;
 var g_lockedTiles = [];
 var g_lockedStation = [];
 var g_lockedMountains = [];
+var g_overrideNumberSelected = false;
+var g_overrideTrackSelected = false;
+var g_overrideTrackSixSelected = false;
+var g_rowAndColumnRolled = 0;
+var g_skipPressed = false;
+var g_stationNumber;
+var g_trackTileRolled = 0;
 var g_inputBoxes = [
     "1to2",
     "1to3",
@@ -53,21 +53,22 @@ $(document).ready(function() {
     $(".tile.ground").on("click", function() {
         switch (g_currentGameMode) {
             case GAME_MODE.SETUP:
-                // choose mountains first.
-                // if (isInValidRowOrColumn(this, g_mountainRow)) {
-                //     placeTile(this, TILE_TYPE.MOUNTAIN);
-                // }
-
-                // choose stations second.
+                // choose mine second
+                // is in valid spot: orthogonally adjedcent to a img_mountain tile AND is not LOCKED
+                // first, add shadow to the areas where you can place a mine
+                
+                // choose stations second
 
                 break;
             case GAME_MODE.PLAYING:
                 // if the tile is NOT locked, a NEW track is selected, and if it's the correct row/column
                 if ((!isLocked(this)) && (g_trackTileRolled !== 0) && (isInValidRowOrColumn(this, g_rowAndColumnRolled) || g_overrideNumberSelected)) {
-                    if (g_lastSelectedTile == this &&
-                        g_lastTrackTileRolled == g_trackTileRolled) {
+                    if (this === g_lastSelectedTile) {
                         rotateTile(this);
                     } else {
+                        // clear and reset the last tile location if it's not a locked tile
+                        if (!g_lockedTiles.includes(g_lastSelectedTile)) $(g_lastSelectedTile).children(".img_track").remove();
+
                         placeTile(this, TILE_TYPE.TRACK);
                     }
                 }
@@ -190,7 +191,7 @@ $(document).ready(function() {
     });
 });
 
-function addUpSum() {
+function addUpSum() { // TODO doesnt work properly
     g_inputBoxes.forEach(function(element) {
         var rowSum = 0;
         var colSum = 0;
@@ -312,14 +313,8 @@ function isInValidRowOrColumn(tile, rowAndColumn) {
     return isInString(getId(tile), rowAndColumn);
 }
 
-function lockTile(tileId = g_lastSelectedTile.id) { // TODO rename and/or look at this.
-    g_lockedTiles.push(tileId);
-
-    //$(g_lastSelectedTile).addClass("locked");
-
-    // reset tile variables.
-    g_lastSelectedTile = "";
-    g_lastTrackTileRolled = "";
+function lockTile(tile = g_lastSelectedTile) {
+    g_lockedTiles.push(tile);
 }
 
 function rotateTile(tile) {
@@ -356,26 +351,19 @@ function placeTile(tile, tileType) {
     // add track html to ground html
     switch (tileType) {
         case TILE_TYPE.TRACK:
-            // clear and reset the last tile location
-            $(g_lastSelectedTile).children(".img_track").remove();
-
             html = $(tile).html() + getImageHTML("track", g_trackTileRolled, "img_track");
-
             break;
         case TILE_TYPE.MOUNTAIN:
             html = $(tile).html() + getRandomImageHTML(MOUNTAIN_IMAGES, "img_mountain");
-
             break;
     }
     
-    // place new tile.
+    // place new tile
     $(tile).html(html);
 
-    // set global variables.
+    // set global variables
     g_lastSelectedTile = tile;
     g_lastTrackTileRolled = g_trackTileRolled;
-    
-    console.log("g_trackTileRolled: " + g_trackTileRolled);
 }
 
 function getImageHTML(filenamePrefix, filenameNumber, className) {
@@ -390,12 +378,12 @@ function isLocked(tile) {
     return g_lockedTiles.indexOf(getId(tile)) != -1;
 }
 
-function getClass(value) {
-    return $(value).attr("class");
+function getClass(element) {
+    return $(element).attr("class");
 }
 
-function getId(value) {
-    return $(value).attr("id");
+function getId(element) {
+    return $(element).attr("id");
 }
 
 function isInString(str, subStr) {
