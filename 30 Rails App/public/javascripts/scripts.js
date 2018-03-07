@@ -225,16 +225,8 @@ function rollDice() {
 
     switch (g_currentGameMode) {
         case GAME_MODE.SETUP:
-            // mountain selection:
-            addShadowToRow(++g_mountainRow);
-
-            $("#roll_track").html(getImageHTML("mountain", MOUNTAIN_IMAGES.length, "img_mountain"));
-
-            placeTile($('[id=' + g_mountainRow + g_rowAndColumnRolled + '].ground.tile'), TILE_TYPE.MOUNTAIN);
-
-            // add mountain tile to lockedList
-            if (g_lastSelectedTile != "") lockTile();
-
+            setMountainTile();
+            
             break;
         case GAME_MODE.PLAYING:
             g_trackTileRolled = getRandomNumber();
@@ -256,6 +248,14 @@ function rollDice() {
             break;
     }
     
+}
+
+function setMountainTile() {
+    var tile = '[id=' + ++g_mountainRow + g_rowAndColumnRolled + '].ground.tile';
+
+    addShadowToRow(g_mountainRow);
+    placeTile($(tile), TILE_TYPE.MOUNTAIN);
+    lockTile(tile);
 }
 
 function overrideTrackSelected(trackNumber) {
@@ -445,16 +445,10 @@ function getRandomImageHTML(images, className) {
 }
 
 function skipLastMountainTile() {
-    // remove last selected tile
-    $(g_lastSelectedTile).children(".img_mountain").remove();
-
-    // remove from locked tile list
-    g_lockedTiles.pop();
-    
-    alert(g_lockedTiles.length);
-    
-    // set skip variable as true
     g_skipPressed = true;
+    g_lockedTiles.pop(); // remove from locked tile list
+    
+    $(g_lastSelectedTile).children(".img_mountain").remove(); // remove last selected tile
 
     // blank out tile
     // TODO
