@@ -233,7 +233,7 @@ function rollDice() {
             placeTile($('[id=' + g_mountainRow + g_rowAndColumnRolled + '].ground.tile'), TILE_TYPE.MOUNTAIN);
 
             // add mountain tile to lockedList
-            if (g_lastSelectedTile != "") g_lockedTiles.push(tileId);
+            if (g_lastSelectedTile != "") lockTile();
 
             break;
         case GAME_MODE.PLAYING:
@@ -445,15 +445,17 @@ function getRandomImageHTML(images, className) {
 }
 
 function skipLastMountainTile() {
-    // remove last selected tile.
+    // remove last selected tile
     $(g_lastSelectedTile).children(".img_mountain").remove();
 
-    // remove from locked tile list.
-    g_lockedTiles.pop; // TODO make sure this works right
+    // remove from locked tile list
+    g_lockedTiles.pop();
     
-    // set skip variable as true.
+    alert(g_lockedTiles.length);
+    
+    // set skip variable as true
     g_skipPressed = true;
 
-    // blank out tile.
+    // blank out tile
     // TODO
 }
