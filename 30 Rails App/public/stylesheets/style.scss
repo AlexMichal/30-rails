@@ -33,21 +33,18 @@ $playfieldWidthAndHeight: 416px;
     background-color: rgb(221, 216, 212);
 }
 
-
 .img_parent {
     position: relative;
     top: 0;
     left: 0;
 }
-.img_track {
-    position: relative;
-    top: 0;
-    left: 0;
-}
-.img_ground {
-    position: absolute;
-    top: 0px;
-    left: 0px;
+
+.img_track, 
+.img_ground, 
+.img_station {
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
 
 .tile.black {

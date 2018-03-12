@@ -31,6 +31,11 @@ var TILE_TYPE = Object.freeze({
     "MOUNTAIN" : 2,
     "STATION" : "station" // TODO can i do something with this?
 });
+var TILE_TYPE_CLASS = Object.freeze({
+    "TRACK" : ".img_track",
+    "MOUNTAIN" : ".img_mountain",
+    "STATION" : ".img_station" // TODO can i do something with this?
+});
 
 const ROTATE90 = "rotate90";
 const ROTATE180 = "rotate180";
@@ -45,6 +50,7 @@ const MOUNTAIN_IMAGES = [
   "mountain2.png",
   "mountain3.png"
 ];
+const g_CLASS_TILE_NOT_EMPTY = "not_empty";
 
 $(document).ready(function() {
     g_currentGameMode = GAME_MODE.PLAYING;
@@ -60,7 +66,7 @@ $(document).ready(function() {
                 // is in valid spot: orthogonally adjedcent to a img_mountain tile AND is not LOCKED
                 // first, add shadow to the areas where you can place a mine
                 
-                // choose stations second
+                // choose stations secondk
 
                 break;
             case GAME_MODE.PLAYING:
@@ -193,27 +199,34 @@ $(document).ready(function() {
         addUpSum(this);
     });
 
+    // STATION TILE set 
     $(".tile.station").on("click", function() {
         if (g_currentGameMode === GAME_MODE.STATION) {
-            placeTile(this, TILE_TYPE.STATION);
+            if ($(this).hasClass(g_CLASS_TILE_NOT_EMPTY)) {
+                removeTile(this, TILE_TYPE_CLASS.STATION);
+            } else {
+                placeTile(this, TILE_TYPE.STATION);
+            }
         }
     });
 
-    $("#btn_set_station").on("click", function() {
-        // TODO add functionality for setting stations
-        g_currentGameMode = GAME_MODE.STATION;
+    function tileContainsAStation(tile) {
+        $(tile).children();
 
-        // add shadow to each side row and column
-        if (g_lockedStation.length === 4) {
-            // grey out this button. the only way to ungrey it is to reset the whole game.
+    }
+
+    // STATION TILE set
+    $("#btn_set_station").on("click", function() { // TODO add functionality for setting stations
+        // if not in STATION mode, put it in STATION mode
+        if (g_currentGameMode !== GAME_MODE.STATION) {
+            g_currentGameMode = GAME_MODE.STATION;
+            
+            $(this).addClass("shadow_blue");
+        } else { // if already in STATION mode, get it out of station mode
+            g_currentGameMode = GAME_MODE.PLAYING;
 
             $(this).removeClass("shadow_blue");
-        } else {
-            // add blue shadow to this button
-            $(this).addClass("shadow_blue");
         }
-        // once you click on this button again AND all 4 sides have a station, 
-        // --> add the tiles to the station array
     });
 });
 
@@ -390,9 +403,18 @@ function placeTile(tile, tileType) {
     // place new tile
     $(tile).html(html);
 
+    // say that this tile contains a station/road
+    $(tile).addClass(g_CLASS_TILE_NOT_EMPTY);
+
     // set global variables
     g_lastSelectedTile = tile;
     g_lastTrackTileRolled = g_trackTileRolled;
+}
+
+function removeTile(tile, tileTypeClass) {
+    $(tile).children(tileTypeClass).remove();
+
+    $(tile).removeClass(g_CLASS_TILE_NOT_EMPTY);
 }
 
 function getImageHTML(filenamePrefix, filenameNumber, className) {

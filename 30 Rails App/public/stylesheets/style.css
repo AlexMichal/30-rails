@@ -16,7 +16,6 @@
   width: 138.66667px;
 }
 
-/* tiles */
 .tile {
   width: 50px;
   height: 50px;
@@ -28,10 +27,9 @@
   background-color: #f6e8d7;
 }
 
-.tile.station, .tile.corner {
+.tile.station {
   background-color: #ddd8d4;
 }
-/* tiles END */
 
 .img_parent {
   position: relative;
@@ -39,16 +37,16 @@
   left: 0;
 }
 
-.img_track {
-  position: relative;
-  top: 0;
-  left: 0;
-}
-
-.img_ground {
+.img_track,
+.img_ground,
+.img_station {
   position: absolute;
   top: 0px;
   left: 0px;
+}
+
+.tile.black {
+  background-color: lightblue;
 }
 
 .shadow {
@@ -57,8 +55,8 @@
 }
 
 .shadow_blue {
-  -webkit-box-shadow: inset 0px 0px 5px 5px rgb(0, 139, 224);
-  box-shadow: inset 0px 0px 3px 3px rgb(0, 139, 224);
+  -webkit-box-shadow: inset 0px 0px 5px 5px #008be0;
+  box-shadow: inset 0px 0px 3px 3px #008be0;
 }
 
 /* ROTATION: */
@@ -114,15 +112,18 @@ input {
 
 /* tilt */
 .tilt {
-  -ms-transform: rotate(7deg); /* IE 9 */
-  -webkit-transform: rotate(7deg); /* Safari 3-8 */
+  -ms-transform: rotate(7deg);
+  /* IE 9 */
+  -webkit-transform: rotate(7deg);
+  /* Safari 3-8 */
   transform: rotate(7deg);
 }
 
 #roll_number > img:hover {
-  -ms-transform: rotate(0deg); /* IE 9 */
-  -webkit-transform: rotate(0deg); /* Safari 3-8 */
+  -ms-transform: rotate(0deg);
+  /* IE 9 */
+  -webkit-transform: rotate(0deg);
+  /* Safari 3-8 */
   transform: rotate(0deg);
 }
-
 /*# sourceMappingURL=style.css.map */
