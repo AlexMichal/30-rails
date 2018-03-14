@@ -221,6 +221,8 @@ $(document).ready(function() {
         if (g_currentGameMode !== GAME_MODE.STATION) {
             g_currentGameMode = GAME_MODE.STATION;
             
+            $(".setup_button").removeClass("shadow_blue");
+
             $(this).addClass("shadow_blue");
         } else { // if already in STATION mode, get it out of station mode
             g_currentGameMode = GAME_MODE.PLAYING;
@@ -235,6 +237,8 @@ $(document).ready(function() {
         if (g_currentGameMode !== GAME_MODE.MOUNTAIN) {
             g_currentGameMode = GAME_MODE.MOUNTAIN;
             
+            $(".setup_button").removeClass("shadow_blue");
+
             $(this).addClass("shadow_blue");
             $("#roll_number").addClass("shadow_blue");
         } else { // if already in MOUNTAIN mode, get it out of MOUNTAIN mode
