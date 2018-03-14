@@ -199,7 +199,7 @@ $(document).ready(function() {
         addUpSum(this);
     });
 
-    // STATION TILE set 
+    // STATION TILE 
     $(".tile.station").on("click", function() {
         if (g_currentGameMode === GAME_MODE.STATION) {
             if ($(this).hasClass(g_CLASS_TILE_NOT_EMPTY)) {
@@ -215,7 +215,7 @@ $(document).ready(function() {
 
     }
 
-    // STATION TILE set
+    // STATION TILE
     $("#btn_set_station").on("click", function() { // TODO add functionality for setting stations
         // if not in STATION mode, put it in STATION mode
         if (g_currentGameMode !== GAME_MODE.STATION) {
@@ -226,6 +226,22 @@ $(document).ready(function() {
             g_currentGameMode = GAME_MODE.PLAYING;
 
             $(this).removeClass("shadow_blue");
+        }
+    });
+
+    // MOUNTAIN TILE
+    $("#btn_set_mountain").on("click", function() {
+        // if not in MOUNTAIN mode, put it in MOUNTAIN mode
+        if (g_currentGameMode !== GAME_MODE.MOUNTAIN) {
+            g_currentGameMode = GAME_MODE.MOUNTAIN;
+            
+            $(this).addClass("shadow_blue");
+            $("#roll_number").addClass("shadow_blue");
+        } else { // if already in MOUNTAIN mode, get it out of MOUNTAIN mode
+            g_currentGameMode = GAME_MODE.PLAYING;
+
+            $(this).removeClass("shadow_blue");
+            $("#roll_number").removeClass("shadow_blue");
         }
     });
 });
