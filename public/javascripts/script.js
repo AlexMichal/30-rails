@@ -59,7 +59,7 @@ $(document).ready(function() {
     populatePlayfieldGrid();
 
     // playfield tiles:
-    $(".tile.ground").on("click", function() {
+    $(".tile.track").on("click", function() {
         switch (g_currentGameMode) {
             case GAME_MODE.SETUP:
                 // choose mine second
@@ -310,7 +310,7 @@ function rollDice() {
 }
 
 function setMountainTile() {
-    var tile = '[id=' + ++g_mountainRow + g_rowAndColumnRolled + '].ground.tile';
+    var tile = '[id=' + ++g_mountainRow + g_rowAndColumnRolled + '].track.tile';
 
     addShadowToRow(g_mountainRow);
     placeTile($(tile), TILE_TYPE.MOUNTAIN);
@@ -333,7 +333,7 @@ function makeAllTracksAvailable() {
 }
 
 function makeAllUnlockedTilesAvailable() {
-    $(".tile.ground").addClass("shadow");
+    $(".tile.track").addClass("shadow");
 
     g_overrideNumberSelected = true;
 }
@@ -350,18 +350,18 @@ function resetGame() {
     g_currentGameMode = GAME_MODE.SETUP;
     
     // remove all track and mountain images, and shadows from the playfield
-    $(".tile.ground").children(".img_track").remove();
-    $(".tile.ground").children(".img_mountain").remove();
+    $(".tile.track").children(".img_track").remove();
+    $(".tile.track").children(".img_mountain").remove();
     $(".tile").removeClass("shadow");
 }
 
 function addShadowToRow(number) {
-    $('[id^=' + number + '].ground.tile').addClass("shadow"); // row
+    $('[id^=' + number + '].track.tile').addClass("shadow"); // row
 }
 
 function addShadowToRowsAndColumns() {
-    $('[id^=' + g_rowAndColumnRolled + '].ground.tile').addClass("shadow"); // column
-    $('[id*=' + g_rowAndColumnRolled + '].ground.tile').addClass("shadow"); // row
+    $('[id^=' + g_rowAndColumnRolled + '].track.tile').addClass("shadow"); // column
+    $('[id*=' + g_rowAndColumnRolled + '].track.tile').addClass("shadow"); // row
 }
 
 function clearShadowFromTheGrid() {
@@ -462,7 +462,7 @@ function isInString(str, subStr) {
 }
 
 function populatePlayfieldGrid() {
-    const GRID_SIZE = 8;
+    /*const GRID_SIZE = 8;
 
     var html = "";
     var type = "";
@@ -477,14 +477,14 @@ function populatePlayfieldGrid() {
             } else if (i == 0 || i == 7 || j == 0 || j == 7) { // stations.
                 type = "station";
             } else { // tracks.
-                type = "ground";
+                type = "track";
             }
 
             html += '<div id="' + i + j + '" class="tile ' + type + ' img_parent"></div>';
         }
     }
 
-    $("#playfield").html(html);
+    $("#playfield").html(html);*/
 
     addGroundToGrid();
 }
@@ -492,7 +492,7 @@ function populatePlayfieldGrid() {
 
 function addGroundToGrid() {
     // playfield
-    $(".tile.ground").each(function() {
+    $(".tile.track").each(function() {
         $(this).html(getRandomImageHTML(GROUND_IMAGES, "img_ground"));
     });
 

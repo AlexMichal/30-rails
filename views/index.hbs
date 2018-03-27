@@ -1,145 +1,230 @@
-<div class="row">
-  <div class="col">
-      <!-- playfield -->
-      <div id="playfield" class="grid">
-      </div>
+<div class="container">
+    <div id="main" class="row">
+        <div class="col col-sm-2">
+        </div>
+        <div id="playfield_and_tracks" class="col col-sm-4">
+            <!-- playfield -->
+            <div id="playfield" class="grid">
+                {{!-- row 1 (top) --}}
+                <div id="00" class="tile img_parent corner"></div>
+                <div id="01" class="tile img_parent station"></div>
+                <div id="02" class="tile img_parent station"></div>
+                <div id="03" class="tile img_parent station"></div>
+                <div id="04" class="tile img_parent station"></div>
+                <div id="05" class="tile img_parent station"></div>
+                <div id="06" class="tile img_parent station"></div>
+                <div id="07" class="tile img_parent corner"></div>
 
-      <!-- tracks -->
-      <div id="tracks" class="grid">
-          <div id="" class="tile white tracks">
-          </div>
-          <div id="track_one" class="tile white track img_parent">
-              <img src="images/track1.png" width="49" height="49"/>
-          </div>
-          <div id="track_two" class="tile white track">
-              <img src="images/track2.png" width="49" height="49"/>
-          </div>
-          <div id="track_three" class="tile white track">
-              <img src="images/track3.png" width="49" height="49"/>
-          </div>
-          <div id="track_four" class="tile white track">
-              <img src="images/track4.png" width="49" height="49"/>
-          </div>
-          <div id="track_five" class="tile white track">
-              <img src="images/track5.png" width="49" height="49"/>
-          </div>
-          <div id="track_six_one" class="tile white track">
-              <img src="images/track6.png" width="49" height="49"/>
-          </div>
-          <div id="track_six_two" class="tile white track">
-              <img src="images/track7.png" width="49" height="49"/>
-          </div>
-      </div>
-  </div>
+                {{!-- row 2 --}}
+                <div id="10" class="tile img_parent station"></div>
+                <div id="11" class="tile img_parent track"></div>
+                <div id="12" class="tile img_parent track"></div>
+                <div id="13" class="tile img_parent track"></div>
+                <div id="14" class="tile img_parent track"></div>
+                <div id="15" class="tile img_parent track"></div>
+                <div id="16" class="tile img_parent track"></div>
+                <div id="17" class="tile img_parent station"></div>
 
-  <!-- buttons -->
-  <div id="buttons" class="col grid">
-      <div id="roll_number" class="tile white roll">
-          <img src="images/dice0.png" width="50" height="50" class="tilt"/>
-      </div>
-      <div id="roll_track" class="tile white die_two">
-      </div>
-      <div class="tile white">
-      </div>
-      <div class="tile white">
-      </div>
-      <div id="override_number" class="tile white">
-          OVRD NMBR
-      </div>
-      <div id="override_track" class="tile white">
-          OVRD TRCK
-      </div>
-      <div id="btn_reset" class="tile white reset">
-          <img src="images/reset.png" width="50" height="50" />
-      </div>
-      <div id="btn_skip" class="tile white">
-          SKIP
-      </div>
-      <div id="btn_set_mountain" class="tile white setup_button">
-          SET MTN
-      </div>
-      <div id="btn_set_station" class="tile white setup_button">
-          SET STN
-      </div>
-  </div>
+                {{!-- row 3 --}}
+                <div id="30" class="tile img_parent station"></div>
+                <div id="31" class="tile img_parent track"></div>
+                <div id="32" class="tile img_parent track"></div>
+                <div id="33" class="tile img_parent track"></div>
+                <div id="34" class="tile img_parent track"></div>
+                <div id="35" class="tile img_parent track"></div>
+                <div id="36" class="tile img_parent track"></div>
+                <div id="37" class="tile img_parent station"></div>
 
-  <!-- scoring -->
-  <div id="scoring" class="col">
-      <table id="scoring_table" class="left">
-          <tr>
-              <th></th>
-              <th>?</th>
-              <th>len</th>
-              <th>+2</th>
-              <th>adv</th>
-              <th>sum</th>
-          </tr>
-          <tr>
-              <td>1-2</td>
-              <td><input class="1to2" type="text" name="1to2default" value="1" disabled></td>
-              <td><input class="1to2" type="text" name="1to2len"></td>
-              <td><input class="1to2" type="text" name="1to2plus2"></td>
-              <td><input class="1to2" type="text" name="1to2adv"></td>
-              <td><input class="1to2sum" type="text" name="1to2sum" disabled></td>
-          </tr>
-          <tr>
-              <td>1-3</td>
-              <td><input class="1to3" type="text" name="1to3default" value="2" disabled></td>
-              <td><input class="1to3" type="text" name="1to3len"></td>
-              <td><input class="1to3" type="text" name="1to3plus2"></td>
-              <td><input class="1to3" type="text" name="1to3adv"></td>
-              <td><input class="1to3sum" type="text" name="1to3sum" disabled></td>
-          </tr>
-          <tr>
-              <td>1-4</td>
-              <td><input class="1to4" type="text" name="1to4default" value="3" disabled></td>
-              <td><input class="1to4" type="text" name="1to4len"></td>
-              <td><input class="1to4" type="text" name="1to4plus2"></td>
-              <td><input class="1to4" type="text" name="1to4adv"></td>
-              <td><input class="1to4sum" type="text" name="1to4sum" disabled></td>
-          </tr>
-          <tr>
-              <td>2-3</td>
-              <td><input class="2to3" type="text" name="2to3default" value="3" disabled></td>
-              <td><input class="2to3" type="text" name="2to3len"></td>
-              <td><input class="2to3" type="text" name="2to3plus2"></td>
-              <td><input class="2to3" type="text" name="3to3adv"></td>
-              <td><input class="2to3sum"type="text" name="2to3sum" disabled></td>
-          </tr>
-          <tr>
-              <td>2-4</td>
-              <td><input class="2to4" type="text" name="2to4default" value="4" disabled></td>
-              <td><input class="2to4" type="text" name="2to4len"></td>
-              <td><input class="2to4" type="text" name="2to4plus2"></td>
-              <td><input class="2to4" type="text" name="2to4adv"></td>
-              <td><input class="2to4sum" type="text" name="2to4sum" disabled></td>
-          </tr>
-          <tr>
-              <td>3-4</td>
-              <td><input class="3to4" type="text" name="3to5default" value="5" disabled></td>
-              <td><input class="3to4" type="text" name="3to5len"></td>
-              <td><input class="3to4" type="text" name="3to5plus2"></td>
-              <td><input class="3to4" type="text" name="3to5adv"></td>
-              <td><input class="3to4sum" type="text" name="3to5sum" disabled></td>
-          </tr>
-          <!-- mine -->
-          <tr>
-              <td>?-M</td>
-              <td>2</td>
-              <td>6</td>
-              <td>12</td>
-              <td>20</td>
-              <td><input class="minesSum" type="text" name="minesSum"></td>
-          </tr>
-          <!-- sum -->
-          <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>Sum:</td>
-              <td><input class="totalSum" type="text" name="totalSum" disabled></td>
-          </tr>
-      </table>
-  </div>
+                {{!-- row 4 --}}
+                <div id="40" class="tile img_parent station"></div>
+                <div id="41" class="tile img_parent track"></div>
+                <div id="42" class="tile img_parent track"></div>
+                <div id="43" class="tile img_parent track"></div>
+                <div id="44" class="tile img_parent track"></div>
+                <div id="45" class="tile img_parent track"></div>
+                <div id="46" class="tile img_parent track"></div>
+                <div id="47" class="tile img_parent station"></div>
+                
+                {{!-- row 5 --}}
+                <div id="50" class="tile img_parent station"></div>
+                <div id="51" class="tile img_parent track"></div>
+                <div id="52" class="tile img_parent track"></div>
+                <div id="53" class="tile img_parent track"></div>
+                <div id="54" class="tile img_parent track"></div>
+                <div id="55" class="tile img_parent track"></div>
+                <div id="56" class="tile img_parent track"></div>
+                <div id="57" class="tile img_parent station"></div>
+
+                {{!-- row 6 --}}
+                <div id="60" class="tile img_parent station"></div>
+                <div id="61" class="tile img_parent track"></div>
+                <div id="62" class="tile img_parent track"></div>
+                <div id="63" class="tile img_parent track"></div>
+                <div id="64" class="tile img_parent track"></div>
+                <div id="65" class="tile img_parent track"></div>
+                <div id="66" class="tile img_parent track"></div>
+                <div id="67" class="tile img_parent station"></div>
+
+                {{!-- row 7 --}}
+                <div id="70" class="tile img_parent station"></div>
+                <div id="71" class="tile img_parent track"></div>
+                <div id="72" class="tile img_parent track"></div>
+                <div id="73" class="tile img_parent track"></div>
+                <div id="74" class="tile img_parent track"></div>
+                <div id="75" class="tile img_parent track"></div>
+                <div id="76" class="tile img_parent track"></div>
+                <div id="77" class="tile img_parent station"></div>
+
+                {{!-- row 8 (bottom) --}}
+                <div id="80" class="tile img_parent corner"></div>
+                <div id="81" class="tile img_parent station"></div>
+                <div id="82" class="tile img_parent station"></div>
+                <div id="83" class="tile img_parent station"></div>
+                <div id="84" class="tile img_parent station"></div>
+                <div id="85" class="tile img_parent station"></div>
+                <div id="86" class="tile img_parent station"></div>
+                <div id="87" class="tile img_parent corner"></div>
+            </div>
+
+            <!-- tracks -->
+            <div id="tracks" class="grid">
+                <div id="" class="tile white tracks">
+                </div>
+                <div id="track_one" class="tile white track img_parent">
+                    <img src="images/track1.png" width="49" height="49"/>
+                </div>
+                <div id="track_two" class="tile white track">
+                    <img src="images/track2.png" width="49" height="49"/>
+                </div>
+                <div id="track_three" class="tile white track">
+                    <img src="images/track3.png" width="49" height="49"/>
+                </div>
+                <div id="track_four" class="tile white track">
+                    <img src="images/track4.png" width="49" height="49"/>
+                </div>
+                <div id="track_five" class="tile white track">
+                    <img src="images/track5.png" width="49" height="49"/>
+                </div>
+                <div id="track_six_one" class="tile white track">
+                    <img src="images/track6.png" width="49" height="49"/>
+                </div>
+                <div id="track_six_two" class="tile white track">
+                    <img src="images/track7.png" width="49" height="49"/>
+                </div>
+            </div>
+        </div>
+        <!-- buttons -->
+        <div id="buttons" class="col grid">
+            <div id="roll_number" class="tile white roll">
+                <img src="images/dice0.png" width="50" height="50" class="tilt"/>
+            </div>
+            <div id="roll_track" class="tile white die_two">
+            </div>
+            <div class="tile white">
+            </div>
+            <div class="tile white">
+            </div>
+            <div id="override_number" class="tile white">
+                OVRD NMBR
+            </div>
+            <div id="override_track" class="tile white">
+                OVRD TRCK
+            </div>
+            <div id="btn_reset" class="tile white reset">
+                <img src="images/reset.png" width="50" height="50" />
+            </div>
+            <div id="btn_skip" class="tile white">
+                SKIP
+            </div>
+            <div id="btn_set_mountain" class="tile white setup_button">
+                SET MTN
+            </div>
+            <div id="btn_set_station" class="tile white setup_button">
+                SET STN
+            </div>
+        </div>
+        <div class="col col-sm-2">
+        </div>
+        <!-- scoring -->
+        <div id="scoring" class="col col-sm-4">
+            <table id="scoring_table" class="left">
+                <tr>
+                    <th></th>
+                    <th>?</th>
+                    <th>len</th>
+                    <th>+2</th>
+                    <th>adv</th>
+                    <th>sum</th>
+                </tr>
+                <tr>
+                    <td>1-2</td>
+                    <td><input class="1to2" type="text" name="1to2default" value="1" disabled></td>
+                    <td><input class="1to2" type="text" name="1to2len"></td>
+                    <td><input class="1to2" type="text" name="1to2plus2"></td>
+                    <td><input class="1to2" type="text" name="1to2adv"></td>
+                    <td><input class="1to2sum" type="text" name="1to2sum" disabled></td>
+                </tr>
+                <tr>
+                    <td>1-3</td>
+                    <td><input class="1to3" type="text" name="1to3default" value="2" disabled></td>
+                    <td><input class="1to3" type="text" name="1to3len"></td>
+                    <td><input class="1to3" type="text" name="1to3plus2"></td>
+                    <td><input class="1to3" type="text" name="1to3adv"></td>
+                    <td><input class="1to3sum" type="text" name="1to3sum" disabled></td>
+                </tr>
+                <tr>
+                    <td>1-4</td>
+                    <td><input class="1to4" type="text" name="1to4default" value="3" disabled></td>
+                    <td><input class="1to4" type="text" name="1to4len"></td>
+                    <td><input class="1to4" type="text" name="1to4plus2"></td>
+                    <td><input class="1to4" type="text" name="1to4adv"></td>
+                    <td><input class="1to4sum" type="text" name="1to4sum" disabled></td>
+                </tr>
+                <tr>
+                    <td>2-3</td>
+                    <td><input class="2to3" type="text" name="2to3default" value="3" disabled></td>
+                    <td><input class="2to3" type="text" name="2to3len"></td>
+                    <td><input class="2to3" type="text" name="2to3plus2"></td>
+                    <td><input class="2to3" type="text" name="3to3adv"></td>
+                    <td><input class="2to3sum"type="text" name="2to3sum" disabled></td>
+                </tr>
+                <tr>
+                    <td>2-4</td>
+                    <td><input class="2to4" type="text" name="2to4default" value="4" disabled></td>
+                    <td><input class="2to4" type="text" name="2to4len"></td>
+                    <td><input class="2to4" type="text" name="2to4plus2"></td>
+                    <td><input class="2to4" type="text" name="2to4adv"></td>
+                    <td><input class="2to4sum" type="text" name="2to4sum" disabled></td>
+                </tr>
+                <tr>
+                    <td>3-4</td>
+                    <td><input class="3to4" type="text" name="3to5default" value="5" disabled></td>
+                    <td><input class="3to4" type="text" name="3to5len"></td>
+                    <td><input class="3to4" type="text" name="3to5plus2"></td>
+                    <td><input class="3to4" type="text" name="3to5adv"></td>
+                    <td><input class="3to4sum" type="text" name="3to5sum" disabled></td>
+                </tr>
+                <!-- mine -->
+                <tr>
+                    <td>?-M</td>
+                    <td>2</td>
+                    <td>6</td>
+                    <td>12</td>
+                    <td>20</td>
+                    <td><input class="minesSum" type="text" name="minesSum"></td>
+                </tr>
+                <!-- sum -->
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Sum:</td>
+                    <td><input class="totalSum" type="text" name="totalSum" disabled></td>
+                </tr>
+            </table>
+        </div>
+        <div class="col col-sm-2">
+        </div>
+    </div>
 </div>
