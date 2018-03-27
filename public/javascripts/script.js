@@ -59,7 +59,7 @@ $(document).ready(function() {
     populatePlayfieldGrid();
 
     // playfield tiles:
-    $(".tile.track").on("click", function() {
+    $(".tile.ground").on("click", function() {
         switch (g_currentGameMode) {
             case GAME_MODE.SETUP:
                 // choose mine second
@@ -310,7 +310,7 @@ function rollDice() {
 }
 
 function setMountainTile() {
-    var tile = '[id=' + ++g_mountainRow + g_rowAndColumnRolled + '].track.tile';
+    var tile = '[id=' + ++g_mountainRow + g_rowAndColumnRolled + '].ground.tile';
 
     addShadowToRow(g_mountainRow);
     placeTile($(tile), TILE_TYPE.MOUNTAIN);
@@ -333,7 +333,7 @@ function makeAllTracksAvailable() {
 }
 
 function makeAllUnlockedTilesAvailable() {
-    $(".tile.track").addClass("shadow");
+    $(".tile.ground").addClass("shadow");
 
     g_overrideNumberSelected = true;
 }
@@ -360,8 +360,8 @@ function addShadowToRow(number) {
 }
 
 function addShadowToRowsAndColumns() {
-    $('[id^=' + g_rowAndColumnRolled + '].track.tile').addClass("shadow"); // column
-    $('[id*=' + g_rowAndColumnRolled + '].track.tile').addClass("shadow"); // row
+    $('[id^=' + g_rowAndColumnRolled + '].ground.tile').addClass("shadow"); // column
+    $('[id*=' + g_rowAndColumnRolled + '].ground.tile').addClass("shadow"); // row
 }
 
 function clearShadowFromTheGrid() {
@@ -492,7 +492,7 @@ function populatePlayfieldGrid() {
 
 function addGroundToGrid() {
     // playfield
-    $(".tile.track").each(function() {
+    $(".tile.ground").each(function() {
         $(this).html(getRandomImageHTML(GROUND_IMAGES, "img_ground"));
     });
 

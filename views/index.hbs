@@ -1,8 +1,8 @@
 <div class="container">
     <div id="main" class="row">
-        <div class="col col-sm-2">
+        <div class="col col-sm-1">
         </div>
-        <div id="playfield_and_tracks" class="col col-sm-4">
+        <div id="playfield_and_tracks" class="col col-sm-6">
             <!-- playfield -->
             <div id="playfield" class="grid">
                 {{!-- row 1 (top) --}}
@@ -17,62 +17,62 @@
 
                 {{!-- row 2 --}}
                 <div id="10" class="tile img_parent station"></div>
-                <div id="11" class="tile img_parent track"></div>
-                <div id="12" class="tile img_parent track"></div>
-                <div id="13" class="tile img_parent track"></div>
-                <div id="14" class="tile img_parent track"></div>
-                <div id="15" class="tile img_parent track"></div>
-                <div id="16" class="tile img_parent track"></div>
+                <div id="11" class="tile img_parent ground"></div>
+                <div id="12" class="tile img_parent ground"></div>
+                <div id="13" class="tile img_parent ground"></div>
+                <div id="14" class="tile img_parent ground"></div>
+                <div id="15" class="tile img_parent ground"></div>
+                <div id="16" class="tile img_parent ground"></div>
                 <div id="17" class="tile img_parent station"></div>
 
                 {{!-- row 3 --}}
                 <div id="30" class="tile img_parent station"></div>
-                <div id="31" class="tile img_parent track"></div>
-                <div id="32" class="tile img_parent track"></div>
-                <div id="33" class="tile img_parent track"></div>
-                <div id="34" class="tile img_parent track"></div>
-                <div id="35" class="tile img_parent track"></div>
-                <div id="36" class="tile img_parent track"></div>
+                <div id="31" class="tile img_parent ground"></div>
+                <div id="32" class="tile img_parent ground"></div>
+                <div id="33" class="tile img_parent ground"></div>
+                <div id="34" class="tile img_parent ground"></div>
+                <div id="35" class="tile img_parent ground"></div>
+                <div id="36" class="tile img_parent ground"></div>
                 <div id="37" class="tile img_parent station"></div>
 
                 {{!-- row 4 --}}
                 <div id="40" class="tile img_parent station"></div>
-                <div id="41" class="tile img_parent track"></div>
-                <div id="42" class="tile img_parent track"></div>
-                <div id="43" class="tile img_parent track"></div>
-                <div id="44" class="tile img_parent track"></div>
-                <div id="45" class="tile img_parent track"></div>
-                <div id="46" class="tile img_parent track"></div>
+                <div id="41" class="tile img_parent ground"></div>
+                <div id="42" class="tile img_parent ground"></div>
+                <div id="43" class="tile img_parent ground"></div>
+                <div id="44" class="tile img_parent ground"></div>
+                <div id="45" class="tile img_parent ground"></div>
+                <div id="46" class="tile img_parent ground"></div>
                 <div id="47" class="tile img_parent station"></div>
                 
                 {{!-- row 5 --}}
                 <div id="50" class="tile img_parent station"></div>
-                <div id="51" class="tile img_parent track"></div>
-                <div id="52" class="tile img_parent track"></div>
-                <div id="53" class="tile img_parent track"></div>
-                <div id="54" class="tile img_parent track"></div>
-                <div id="55" class="tile img_parent track"></div>
-                <div id="56" class="tile img_parent track"></div>
+                <div id="51" class="tile img_parent ground"></div>
+                <div id="52" class="tile img_parent ground"></div>
+                <div id="53" class="tile img_parent ground"></div>
+                <div id="54" class="tile img_parent ground"></div>
+                <div id="55" class="tile img_parent ground"></div>
+                <div id="56" class="tile img_parent ground"></div>
                 <div id="57" class="tile img_parent station"></div>
 
                 {{!-- row 6 --}}
                 <div id="60" class="tile img_parent station"></div>
-                <div id="61" class="tile img_parent track"></div>
-                <div id="62" class="tile img_parent track"></div>
-                <div id="63" class="tile img_parent track"></div>
-                <div id="64" class="tile img_parent track"></div>
-                <div id="65" class="tile img_parent track"></div>
-                <div id="66" class="tile img_parent track"></div>
+                <div id="61" class="tile img_parent ground"></div>
+                <div id="62" class="tile img_parent ground"></div>
+                <div id="63" class="tile img_parent ground"></div>
+                <div id="64" class="tile img_parent ground"></div>
+                <div id="65" class="tile img_parent ground"></div>
+                <div id="66" class="tile img_parent ground"></div>
                 <div id="67" class="tile img_parent station"></div>
 
                 {{!-- row 7 --}}
                 <div id="70" class="tile img_parent station"></div>
-                <div id="71" class="tile img_parent track"></div>
-                <div id="72" class="tile img_parent track"></div>
-                <div id="73" class="tile img_parent track"></div>
-                <div id="74" class="tile img_parent track"></div>
-                <div id="75" class="tile img_parent track"></div>
-                <div id="76" class="tile img_parent track"></div>
+                <div id="71" class="tile img_parent ground"></div>
+                <div id="72" class="tile img_parent ground"></div>
+                <div id="73" class="tile img_parent ground"></div>
+                <div id="74" class="tile img_parent ground"></div>
+                <div id="75" class="tile img_parent ground"></div>
+                <div id="76" class="tile img_parent ground"></div>
                 <div id="77" class="tile img_parent station"></div>
 
                 {{!-- row 8 (bottom) --}}
@@ -113,8 +113,9 @@
                 </div>
             </div>
         </div>
+
         <!-- buttons -->
-        <div id="buttons" class="col grid">
+        <div id="buttons" class="col col-sm-2 grid">
             <div id="roll_number" class="tile white roll">
                 <img src="images/dice0.png" width="50" height="50" class="tilt"/>
             </div>
@@ -143,8 +144,10 @@
                 SET STN
             </div>
         </div>
+
         <div class="col col-sm-2">
         </div>
+
         <!-- scoring -->
         <div id="scoring" class="col col-sm-4">
             <table id="scoring_table" class="left">
@@ -224,7 +227,8 @@
                 </tr>
             </table>
         </div>
-        <div class="col col-sm-2">
+
+        <div class="col col-sm-1">
         </div>
     </div>
 </div>
