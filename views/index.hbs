@@ -1,8 +1,7 @@
 <div class="container">
-    <div id="main" class="row">
-        <div class="col col-sm-1">
-        </div>
-        <div id="playfield_and_tracks" class="col col-sm-6">
+    <div id="main" class="row justify-content-md-center">
+        {{!-- PLAYFIELD AND TRACKS --}}
+        <div id="playfield_and_tracks" class="col col-md-auto main_content">
             <!-- playfield -->
             <div id="playfield" class="grid">
                 {{!-- row 1 (top) --}}
@@ -114,8 +113,8 @@
             </div>
         </div>
 
-        <!-- buttons -->
-        <div id="buttons" class="col col-sm-2 grid">
+        {{!-- BUTTONS --}}
+        <div id="buttons" class="col col-md-auto grid main_content">
             <div id="roll_number" class="tile white roll">
                 <img src="images/dice0.png" width="50" height="50" class="tilt"/>
             </div>
@@ -132,7 +131,7 @@
                 OVRD TRCK
             </div>
             <div id="btn_reset" class="tile white reset">
-                <img src="images/reset.png" width="50" height="50" />
+                RESET
             </div>
             <div id="btn_skip" class="tile white">
                 SKIP
@@ -145,11 +144,8 @@
             </div>
         </div>
 
-        <div class="col col-sm-2">
-        </div>
-
-        <!-- scoring -->
-        <div id="scoring" class="col col-sm-4">
+        {{!-- SCORING --}}
+        <div id="scoring" class="col col-md-auto main_content">
             <table id="scoring_table" class="left">
                 <tr>
                     <th></th>
@@ -226,9 +222,6 @@
                     <td><input class="totalSum" type="text" name="totalSum" disabled></td>
                 </tr>
             </table>
-        </div>
-
-        <div class="col col-sm-1">
         </div>
     </div>
 </div>

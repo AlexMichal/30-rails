@@ -96,7 +96,7 @@ th, td {
 }
 
 input {
-  width: 25px;
+  width: 30px;
 }
 
 /* page layout */
@@ -131,13 +131,14 @@ input {
 #main {
   background-color: #d6d6d6;
   padding: 15px;
-  border-radius: 8px;
+  border-radius: 7px;
 }
 
-#playfield_and_tracks {
+.main_content {
   background-color: #ededed;
+  margin: 5px;
   padding: 15px;
-  width: 37.5%;
-  border-radius: 8px;
+  border-radius: 7px;
+  text-align: center;
 }
 /*# sourceMappingURL=style.css.map */

@@ -1,4 +1,6 @@
 $playfieldWidthAndHeight: 416px;
+$mainBackgroundColor: #d6d6d6;
+$subMainBackgroundColor: #ededed;
 
 body {
     // justify-content: center !important;
@@ -103,7 +105,7 @@ th, td {
 }
 
 input {
-    width: 25px;
+    width: 30px;
 }
 
 /* page layout */
@@ -132,14 +134,27 @@ input {
 
 /* main background */
 #main {
-    background-color: #d6d6d6;
+    background-color: $mainBackgroundColor;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: 7px;
+}
+
+.main_content {
+    background-color: $subMainBackgroundColor;
+    margin: 5px;
+    padding: 15px;
+    border-radius: 7px;
+    text-align: center;
 }
 
 #playfield_and_tracks {
-    background-color: #ededed;
-    padding: 15px;
-    width: 37.5%;
-    border-radius: 8px;
+    
+}
+
+#buttons {
+    
+}
+
+#scoring {
+    
 }
