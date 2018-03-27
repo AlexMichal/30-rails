@@ -61,7 +61,7 @@ $(document).ready(function() {
     // playfield tiles:
     $(".tile.ground").on("click", function() {
         switch (g_currentGameMode) {
-            case GAME_MODE.SETUP:
+            case GAME_MODE.SETUP: // TODO doesnt work
                 // choose mine second
                 // is in valid spot: orthogonally adjedcent to a img_mountain tile AND is not LOCKED
                 // first, add shadow to the areas where you can place a mine
@@ -350,13 +350,13 @@ function resetGame() {
     g_currentGameMode = GAME_MODE.SETUP;
     
     // remove all track and mountain images, and shadows from the playfield
-    $(".tile.track").children(".img_track").remove();
-    $(".tile.track").children(".img_mountain").remove();
+    $(".tile.ground").children(".img_track").remove();
+    $(".tile.ground").children(".img_mountain").remove();
     $(".tile").removeClass("shadow");
 }
 
 function addShadowToRow(number) {
-    $('[id^=' + number + '].track.tile').addClass("shadow"); // row
+    $('[id^=' + number + '].ground.tile').addClass("shadow"); // row
 }
 
 function addShadowToRowsAndColumns() {
