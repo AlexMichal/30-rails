@@ -1,0 +1,145 @@
+<div class="row">
+  <div class="col">
+      <!-- playfield -->
+      <div id="playfield" class="grid">
+      </div>
+
+      <!-- tracks -->
+      <div id="tracks" class="grid">
+          <div id="" class="tile white tracks">
+          </div>
+          <div id="track_one" class="tile white track img_parent">
+              <img src="images/track1.png" width="49" height="49"/>
+          </div>
+          <div id="track_two" class="tile white track">
+              <img src="images/track2.png" width="49" height="49"/>
+          </div>
+          <div id="track_three" class="tile white track">
+              <img src="images/track3.png" width="49" height="49"/>
+          </div>
+          <div id="track_four" class="tile white track">
+              <img src="images/track4.png" width="49" height="49"/>
+          </div>
+          <div id="track_five" class="tile white track">
+              <img src="images/track5.png" width="49" height="49"/>
+          </div>
+          <div id="track_six_one" class="tile white track">
+              <img src="images/track6.png" width="49" height="49"/>
+          </div>
+          <div id="track_six_two" class="tile white track">
+              <img src="images/track7.png" width="49" height="49"/>
+          </div>
+      </div>
+  </div>
+
+  <!-- buttons -->
+  <div id="buttons" class="col grid">
+      <div id="roll_number" class="tile white roll">
+          <img src="images/dice0.png" width="50" height="50" class="tilt"/>
+      </div>
+      <div id="roll_track" class="tile white die_two">
+      </div>
+      <div class="tile white">
+      </div>
+      <div class="tile white">
+      </div>
+      <div id="override_number" class="tile white">
+          OVRD NMBR
+      </div>
+      <div id="override_track" class="tile white">
+          OVRD TRCK
+      </div>
+      <div id="btn_reset" class="tile white reset">
+          <img src="images/reset.png" width="50" height="50" />
+      </div>
+      <div id="btn_skip" class="tile white">
+          SKIP
+      </div>
+      <div id="btn_set_mountain" class="tile white setup_button">
+          SET MTN
+      </div>
+      <div id="btn_set_station" class="tile white setup_button">
+          SET STN
+      </div>
+  </div>
+
+  <!-- scoring -->
+  <div id="scoring" class="col">
+      <table id="scoring_table" class="left">
+          <tr>
+              <th></th>
+              <th>?</th>
+              <th>len</th>
+              <th>+2</th>
+              <th>adv</th>
+              <th>sum</th>
+          </tr>
+          <tr>
+              <td>1-2</td>
+              <td><input class="1to2" type="text" name="1to2default" value="1" disabled></td>
+              <td><input class="1to2" type="text" name="1to2len"></td>
+              <td><input class="1to2" type="text" name="1to2plus2"></td>
+              <td><input class="1to2" type="text" name="1to2adv"></td>
+              <td><input class="1to2sum" type="text" name="1to2sum" disabled></td>
+          </tr>
+          <tr>
+              <td>1-3</td>
+              <td><input class="1to3" type="text" name="1to3default" value="2" disabled></td>
+              <td><input class="1to3" type="text" name="1to3len"></td>
+              <td><input class="1to3" type="text" name="1to3plus2"></td>
+              <td><input class="1to3" type="text" name="1to3adv"></td>
+              <td><input class="1to3sum" type="text" name="1to3sum" disabled></td>
+          </tr>
+          <tr>
+              <td>1-4</td>
+              <td><input class="1to4" type="text" name="1to4default" value="3" disabled></td>
+              <td><input class="1to4" type="text" name="1to4len"></td>
+              <td><input class="1to4" type="text" name="1to4plus2"></td>
+              <td><input class="1to4" type="text" name="1to4adv"></td>
+              <td><input class="1to4sum" type="text" name="1to4sum" disabled></td>
+          </tr>
+          <tr>
+              <td>2-3</td>
+              <td><input class="2to3" type="text" name="2to3default" value="3" disabled></td>
+              <td><input class="2to3" type="text" name="2to3len"></td>
+              <td><input class="2to3" type="text" name="2to3plus2"></td>
+              <td><input class="2to3" type="text" name="3to3adv"></td>
+              <td><input class="2to3sum"type="text" name="2to3sum" disabled></td>
+          </tr>
+          <tr>
+              <td>2-4</td>
+              <td><input class="2to4" type="text" name="2to4default" value="4" disabled></td>
+              <td><input class="2to4" type="text" name="2to4len"></td>
+              <td><input class="2to4" type="text" name="2to4plus2"></td>
+              <td><input class="2to4" type="text" name="2to4adv"></td>
+              <td><input class="2to4sum" type="text" name="2to4sum" disabled></td>
+          </tr>
+          <tr>
+              <td>3-4</td>
+              <td><input class="3to4" type="text" name="3to5default" value="5" disabled></td>
+              <td><input class="3to4" type="text" name="3to5len"></td>
+              <td><input class="3to4" type="text" name="3to5plus2"></td>
+              <td><input class="3to4" type="text" name="3to5adv"></td>
+              <td><input class="3to4sum" type="text" name="3to5sum" disabled></td>
+          </tr>
+          <!-- mine -->
+          <tr>
+              <td>?-M</td>
+              <td>2</td>
+              <td>6</td>
+              <td>12</td>
+              <td>20</td>
+              <td><input class="minesSum" type="text" name="minesSum"></td>
+          </tr>
+          <!-- sum -->
+          <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>Sum:</td>
+              <td><input class="totalSum" type="text" name="totalSum" disabled></td>
+          </tr>
+      </table>
+  </div>
+</div>
