@@ -24,7 +24,8 @@ var GAME_MODE = Object.freeze({
     "PLAYING" : 1,
     "SETUP" : 2,
     "MOUNTAIN" : 3,
-    "STATION" : 4
+    "STATION" : 4,
+    "MINE" : 5
 });
 var TILE_TYPE = Object.freeze({
     "TRACK" : 1,
@@ -61,13 +62,23 @@ $(document).ready(function() {
     // playfield tiles:
     $(".tile.ground").on("click", function() {
         switch (g_currentGameMode) {
-            case GAME_MODE.SETUP: // TODO doesnt work
+            case GAME_MODE.MINE: // TODO doesnt work
                 // choose mine second
-                // is in valid spot: orthogonally adjedcent to a img_mountain tile AND is not LOCKED
+                // is in valid spot: orthogonally adjacent to a img_mountain tile AND is not LOCKED
                 // first, add shadow to the areas where you can place a mine
                 
                 // choose stations secondk
 
+                break;
+            case GAME_MODE.MOUNTAIN:
+                // TODO
+                break;
+            case GAME_MODE.STATION:
+                // User is able to roll dice but instead of a track being laid, a mountain tile is placed
+                // TODO
+                break;
+            case GAME_MODE.MINE:
+                // TODO
                 break;
             case GAME_MODE.PLAYING:
                 // if the tile is NOT locked, a NEW track is selected, and if it's the correct row/column
@@ -86,7 +97,7 @@ $(document).ready(function() {
     });
 
     // roll dice
-    $(".tile.white.roll").on("click", function() {
+    $("#btn-roll-number").on("click", function() {
         rollDice();
     });
 
@@ -240,12 +251,12 @@ $(document).ready(function() {
             $(".setup_button").removeClass("shadow_blue");
 
             $(this).addClass("shadow_blue");
-            $("#roll_number").addClass("shadow_blue");
+            $("#btn-roll-number").addClass("shadow_blue");
         } else { // if already in MOUNTAIN mode, get it out of MOUNTAIN mode
             g_currentGameMode = GAME_MODE.PLAYING;
 
             $(this).removeClass("shadow_blue");
-            $("#roll_number").removeClass("shadow_blue");
+            $("#btn-roll-number").removeClass("shadow_blue");
         }
     });
 });
@@ -294,8 +305,8 @@ function rollDice() {
 
             if (g_lastSelectedTile != "") lockTile();
 
-            $("#roll_number").html(getImageHTML("dice", g_rowAndColumnRolled, "img_dice"));
-            $("#roll_track").html(getImageHTML("track", g_trackTileRolled, "img_track"));
+            $("#btn-roll-number").html(getImageHTML("dice", g_rowAndColumnRolled, "img_dice"));
+            $("#btn-roll-track").html(getImageHTML("track", g_trackTileRolled, "img_track"));
 
             // make track six tracks available:
             if (g_trackTileRolled === 6) {
@@ -322,7 +333,7 @@ function overrideTrackSelected(trackNumber) {
         g_trackTileRolled = trackNumber;
         
         // update track image.
-        $("#roll_track").html(getImageHTML("track", g_trackTileRolled, "img_track"));
+        $("#btn-roll-track").html(getImageHTML("track", g_trackTileRolled, "img_track"));
     }
 }
 
